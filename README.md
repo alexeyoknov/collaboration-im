@@ -12,7 +12,7 @@
   - `npm install`
   - `npm run build`
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
-- Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД.\
+- Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД.
   
   Образец можно взять файле **.env** (находится в корне этого каталога)
 
@@ -24,7 +24,7 @@
     server_name c-im.my;
     root /www/collaboration-im/public;
 ```
-где для **server_name** указать своё имя, а для **root** - правильный путь к `collaboration-im`
+где для **server_name** указать своё имя, а для **root** - правильный путь к `collaboration-im`\
 Также может понадобится изменить `fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;`, где необходимо указать правильный путь к файлу сокета
 
 ### Подключение конфига и запуск
