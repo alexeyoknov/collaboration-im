@@ -40,3 +40,10 @@
 ```
 127.0.0.1   c-im.my
 ```
+
+## Миграции
+- В `.env.local` указать подключение к БД `DATABASE_URL="mysql://root:@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"`
+- В phpmyadmin создать БД с указанным в подключении именем
+- Каталог проекта выполнить следующие команды:
+  - `bin/console make:migration`
+  - `bin/console doctrine:migrations:migrate`
