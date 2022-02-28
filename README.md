@@ -18,8 +18,8 @@
 
 ## Настройка виртуального хоста в nginx
 ### Настройка конфигурации хоста
-Примерный файл конфигурации можно найти в [/config/nginx/](https://github.com/alexeyoknov/collaboration-im/blob/main/config/nginx/)
-В нем надо проверить и поменять под себя следующие строки:
+Примерный файл конфигурации можно найти в [config/nginx/local.nginx.example](https://github.com/alexeyoknov/collaboration-im/blob/main/config/nginx/local.nginx.example)
+Его можно переименовать, например, в **local.collaboration-im.conf**, а также проверить и поменять под себя следующие строки:
 ```
     server_name c-im.my;
     root /www/collaboration-im/public;
