@@ -17,3 +17,5 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 .history
 .vscode
+/config/nginx
+!/config/nginx/local.nginx.example
