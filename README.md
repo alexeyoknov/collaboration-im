@@ -12,7 +12,7 @@
   - `npm install`
   - `npm run build`
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
-- Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД.\
+- Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД.\ 
   
   Образец можно взять файле **.env** (находится в корне этого каталога)
 
@@ -30,13 +30,13 @@
 ### Подключение конфига и запуск
 
 Для подключения виртуального хоста достаточно сделать символическую ссылку на файл с конфигурацией в **/etc/nginx/sites_enabled**\
-Также nginx может быть настроен на чтение файлов ***.conf** из /etc/nginx/conf.d/
+Также nginx может быть настроен на чтение файлов ***.conf** из **/etc/nginx/conf.d/**\
 Сама ссылка делается при помощи такой команды:\
-`ln -s /path/to/conf/file /etc/nginx/sites_enabled/`,либо\
+`ln -s /path/to/conf/file /etc/nginx/sites_enabled/`, либо\
 `ln -s /path/to/conf/file /etc/nginx/sites_enabled/newfilename`, чтобы ссылка имела другое имя
 
 ### Настройка файла hosts
-Чтобы получить доступ к сайту в браузере, надо добавить название сервера, указанное в **server_name**, добавить в `hosts`. Для Linux - `/etc/hosts`, Windows - `c:\windows\system32\drivers\etc\hosts` \
+Чтобы получить доступ к сайту в браузере, надо добавить название сервера, указанное в **server_name**, добавить в `hosts`. Для Linux - `/etc/hosts`, Windows - `c:\windows\system32\drivers\etc\hosts`
 ```
 127.0.0.1   c-im.my
 ```
