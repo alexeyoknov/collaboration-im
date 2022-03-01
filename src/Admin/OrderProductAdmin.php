@@ -25,6 +25,8 @@ final class OrderProductAdmin extends AbstractAdmin
     {
         $list
             ->add('id')
+            ->add('OrderRef')
+            ->add('Product')
             ->add('quantity')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
@@ -38,7 +40,8 @@ final class OrderProductAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('id')
+            ->add('OrderRef')
+            ->add('Product')
             ->add('quantity')
             ;
     }

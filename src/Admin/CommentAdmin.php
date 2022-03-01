@@ -29,6 +29,7 @@ final class CommentAdmin extends AbstractAdmin
         $list
             ->add('id')
             ->add('username')
+            ->add('product')
             ->add('created')
             ->add('text')
             ->add('rating')
@@ -44,9 +45,10 @@ final class CommentAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('id')
+            //->add('id')
             ->add('username')
-            ->add('created')
+            ->add('product')
+            //->add('created')
             ->add('text')
             ->add('rating')
             ;
