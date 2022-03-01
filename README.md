@@ -2,17 +2,18 @@
 Проект интернет магазина, реализованного на фреймворке Symfony
 
 ## Настройка и перый запуск
-- Забрать проект
-- Поднять на сервере виртуальный хост
-- В каталоге нового виртуального хоста разместить содержимое данного репозитория
-- Зайти через консоль в каталог виртуального хоста и выполнить следующие команды:
+1. Забрать проект
+2. Поднять на сервере виртуальный хост
+3. В каталоге нового виртуального хоста разместить содержимое данного репозитория
+4. Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД: имя БД (**db_name**), имя пользователя (**dbusername**) и пароль (**password**) (доп. информацию см. [здесь](#настройка-бд) ) \
+  `DATABASE_URL="mysql://dbusername:password@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"`\
+  после этого можно выполнить следующие команды:\
+  `./bin/console doctrine:schema:update --force` или `./bin/console doctrine:migrations:migrate`
+5. Зайти через консоль в каталог виртуального хоста и выполнить следующие команды:
   - `composer install`
-  - `bin/console doctrine:schema:update --force`
-  - `bin/console doctrine:migrations:migrate`
   - `npm install`
   - `npm run build`
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
-- Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД.
   
   Образец можно взять файле **.env** (находится в корне этого каталога)
 
@@ -41,9 +42,34 @@
 127.0.0.1   c-im.my
 ```
 
-## Миграции
-- В `.env.local` указать подключение к БД `DATABASE_URL="mysql://root:@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"`
-- В phpmyadmin создать БД с указанным в подключении именем
-- Каталог проекта выполнить следующие команды:
-  - `bin/console make:migration`
-  - `bin/console doctrine:migrations:migrate`
+## Настройка БД
+
+Настраивать можно, как при помощи [phpmyadmin](https://www.phpmyadmin.net/), так и непосредственно через mysql. Последовательность действий следующая:
+
+1. Создать БД
+```
+CREATE DATABASE db_name;
+```
+2. Добавить пользователя
+```
+CREATE USER 'dbusername'@'127.0.0.1' IDENTIFIED BY 'password';
+```
+3. Дать этому пользователю административные права для БД
+```
+GRANT ALL PRIVILEGES ON db_name.* TO 'dbusername'@'127.0.0.1';
+```
+4. В **.env.local** указать подключение к БД
+  ```
+  DATABASE_URL="mysql://dbusername:@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"
+  ```
+5. Создать таблицы
+   5.1 Если используются настройки из [миграций](https://github.com/alexeyoknov/collaboration-im/tree/main/migrations)
+  ```
+  ./bin/console make:migration
+  ./bin/console doctrine:migrations:migrate
+  ```
+  5.2 Если берутся настойки из [аннотаций в Entity](https://github.com/alexeyoknov/collaboration-im/tree/main/src/Entity)
+  ```
+  ./bin/console doctrine:schema:update --force
+  ```
+
