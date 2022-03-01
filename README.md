@@ -46,29 +46,29 @@
 
 Настраивать можно, как при помощи [phpmyadmin](https://www.phpmyadmin.net/), так и непосредственно через mysql. Последовательность действий следующая:
 
-1. Создать БД
+### 1. Создать БД
 ```
 CREATE DATABASE db_name;
 ```
-2. Добавить пользователя
+### 2. Добавить пользователя
 ```
 CREATE USER 'dbusername'@'127.0.0.1' IDENTIFIED BY 'password';
 ```
-3. Дать этому пользователю административные права для БД
+### 3. Дать этому пользователю административные права для БД
 ```
 GRANT ALL PRIVILEGES ON db_name.* TO 'dbusername'@'127.0.0.1';
 ```
-4. В **.env.local** указать подключение к БД
+### 4. В **.env.local** указать подключение к БД
   ```
   DATABASE_URL="mysql://dbusername:@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"
   ```
-5. Создать таблицы
-   5.1 Если используются настройки из [миграций](https://github.com/alexeyoknov/collaboration-im/tree/main/migrations)
+### 5. Создать таблицы
+   Если используются настройки из [миграций](https://github.com/alexeyoknov/collaboration-im/tree/main/migrations)
   ```
   ./bin/console make:migration
   ./bin/console doctrine:migrations:migrate
   ```
-  5.2 Если берутся настойки из [аннотаций в Entity](https://github.com/alexeyoknov/collaboration-im/tree/main/src/Entity)
+  Если берутся настойки из [аннотаций в Entity](https://github.com/alexeyoknov/collaboration-im/tree/main/src/Entity)
   ```
   ./bin/console doctrine:schema:update --force
   ```
