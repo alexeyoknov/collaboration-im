@@ -8,7 +8,6 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 final class OrderAdmin extends AbstractAdmin
@@ -27,7 +26,7 @@ final class OrderAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->add('id')
+            //->add('id')
             ->add('clientName')
             ->add('phoneNumber')
             ->add('email')
@@ -43,19 +42,10 @@ final class OrderAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            // ->add('id')
+            ->add('id')
             ->add('clientName')
             ->add('phoneNumber')
             ->add('email')
-            // ->add('orderProducts')
-            // ->add('orderProducts', CollectionType::class, [
-            //         'by_reference' => false
-            //     ],
-            //     [
-            //         'edit' => 'inline',
-            //         'inline' => 'table',
-            //     ]
-            // )
             ;
     }
 

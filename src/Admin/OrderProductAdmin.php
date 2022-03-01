@@ -18,7 +18,6 @@ final class OrderProductAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('quantity')
-            ->add('Product')
             ;
     }
 
@@ -27,7 +26,6 @@ final class OrderProductAdmin extends AbstractAdmin
         $list
             ->add('id')
             ->add('quantity')
-            ->add('Product')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -40,8 +38,7 @@ final class OrderProductAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            // ->add('id')
-            ->add('Product')
+            ->add('id')
             ->add('quantity')
             ;
     }
@@ -51,7 +48,6 @@ final class OrderProductAdmin extends AbstractAdmin
         $show
             ->add('id')
             ->add('quantity')
-            ->add('Product')
             ;
     }
 }

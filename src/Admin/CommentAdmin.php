@@ -10,19 +10,17 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-final class ProductAdmin extends AbstractAdmin
+final class CommentAdmin extends AbstractAdmin
 {
 
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
             ->add('id')
-            ->add('name')
-            ->add('description')
+            ->add('username')
             ->add('created')
-            ->add('updated')
-            ->add('price')
-            ->add('active')
+            ->add('text')
+            ->add('rating')
             ;
     }
 
@@ -30,12 +28,10 @@ final class ProductAdmin extends AbstractAdmin
     {
         $list
             ->add('id')
-            ->add('name')
-            ->add('description')
+            ->add('username')
             ->add('created')
-            ->add('updated')
-            ->add('price')
-            ->add('active')
+            ->add('text')
+            ->add('rating')
             ->add(ListMapper::NAME_ACTIONS, null, [
                 'actions' => [
                     'show' => [],
@@ -48,14 +44,11 @@ final class ProductAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            //->add('id')
-            ->add('name')
-            ->add('description')
-            ->add('Parent')
-            //->add('created')
-            //->add('updated')
-            ->add('price')
-            ->add('active')
+            ->add('id')
+            ->add('username')
+            ->add('created')
+            ->add('text')
+            ->add('rating')
             ;
     }
 
@@ -63,12 +56,10 @@ final class ProductAdmin extends AbstractAdmin
     {
         $show
             ->add('id')
-            ->add('name')
-            ->add('description')
+            ->add('username')
             ->add('created')
-            ->add('updated')
-            ->add('price')
-            ->add('active')
+            ->add('text')
+            ->add('rating')
             ;
     }
 }

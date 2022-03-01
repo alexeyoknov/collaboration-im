@@ -26,8 +26,9 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->add('id')
+            //->add('id')
             ->add('name')
+            ->add('Parent')
             ->add('created')
             ->add('updated')
             ->add(ListMapper::NAME_ACTIONS, null, [
@@ -42,10 +43,11 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            // ->add('id')
+            //->add('id')
             ->add('name')
-            // ->add('created')
-            // ->add('updated')
+            ->add('Parent')
+            //->add('created')
+            //->add('updated')
             ;
     }
 
