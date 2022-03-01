@@ -52,6 +52,11 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active = true;
+
     public function __construct()
     {
         $this->Children = new ArrayCollection();
@@ -172,6 +177,18 @@ class Category
                 $product->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

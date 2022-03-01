@@ -46,6 +46,7 @@ final class CategoryAdmin extends AbstractAdmin
             //->add('id')
             ->add('name')
             ->add('Parent')
+            ->add('active')
             //->add('created')
             //->add('updated')
             ;
