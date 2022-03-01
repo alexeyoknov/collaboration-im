@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block body %}
+    <h1>
+        {{ product.name }}
+    </h1> 
+    <div id="top-path" class="pb-4">
+        {{ render(controller(
+            'App\\Controller\\DefaultController::getCategoriesPath',
+            {   'id': product.getCategory().getId(),
+                'isProductPage': true
+            }))
+        }}  
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <img src="https://fakeimg.pl/400/?text={{ product.name }}">
+        </div>
+        <div class="col-md-5">
+            <h2>
+                Description
+            </h2>
+            <p>
+                {{ product.Description }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

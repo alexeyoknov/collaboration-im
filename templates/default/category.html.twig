@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ category.name }} {% endblock %}
+
+{% block body %} 
+    <h1>
+        {{ category.name }}
+    </h1>
+    <div id="top-path" class="pb-4">
+        {{ render(controller(
+            'App\\Controller\\DefaultController::getCategoriesPath',{'id':category.id}))
+        }}  
+    </div>
+    {% if category.products|length > 0 %}
+    <div class="row">
+        {% for product in category.products %}
+                
+            <div class="col-md-5 text-center pb-4 ">
+                <a href={{ path('product', {id:product.id}) }} class="text-decoration-none text-reset">
+                    <img src="https://fakeimg.pl/200/?text={{ product.name }}">
+                    <div>
+                        <div id="product-name">{{ product.name }}</div>
+                        <div id="price">
+                            Price: some value
+                        </div>
+                    </div>
+                </a>
+            </div> 
+        {% endfor %}
+    </div>      
+    {% endif %}
+    {{ render(controller(
+        'App\\Controller\\DefaultController::getSubCategories',{'parent':category.id}))
+    }}          
+  
+{% endblock %}

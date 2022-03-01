@@ -1,0 +1,7 @@
+{% if products | length > 0 %}
+    <ul>
+        {% for product in products %}
+            <li> <a href={{ path('product', {id:product.id}) }}>{{ product.name }}</a> </li>            
+        {% endfor %}
+    </ul>
+{% endif %} 

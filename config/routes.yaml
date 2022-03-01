@@ -1,3 +1,12 @@
 index:
     path: /
     controller: 'App\Controller\DefaultController::index'
+
+category:
+    path: /catalog-{id}
+    controller: App\Controller\DefaultController::category
+
+product:
+    path: /product-{id}
+    controller: App\Controller\DefaultController::product
+

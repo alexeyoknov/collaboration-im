@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% use "default/leftsidebar.html.twig" %}
+
+{% block title %} Wellcome {% endblock %}
+
+{% block body %}
+    {% for category in categories %}
+        {% if category.id != "" %}
+        <div class="col-md-6">
+            <a href={{ path('category', {id:category.id}) }}>                
+                {{ category.name }}              
+            </a>
+
+            {{ render(controller(
+                'App\\Controller\\DefaultController::getProducts',{'categoryId':category.id}))
+            }}
+
+        </div>
+        {% endif %}
+    {% endfor %} 
+
+{% endblock %}

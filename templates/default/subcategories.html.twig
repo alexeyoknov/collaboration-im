@@ -1,0 +1,20 @@
+<div class="row">
+    {% for category in categories %}
+        <div class="col-md-5 text-center pb-4">
+            <a href={{ path('category', {id:category.id}) }}>
+
+                <img src="https://fakeimg.pl/200/?text={{ category.name }}">
+                <div>
+                    {#{{ category.name }}#}
+                    <div>
+                        Subcategories count: {{category.children|length}}
+                    </div>
+                    <div>
+                        Current category products count: {{category.products|length}}
+                    </div>
+                </div>
+            </a>
+        </div>       
+
+    {% endfor %}
+</div>

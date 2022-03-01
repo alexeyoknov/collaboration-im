@@ -1,0 +1,12 @@
+{% block leftsidebar %}
+<ul>
+    {% for category in categories %}
+        <li>
+            <a href={{ path('category', {id:category.id}) }}>{{ category.name }} [{{category.products|length}}]</a>
+            {{ render(controller(
+                'App\\Controller\\DefaultController::getCategories',{'parent':category.id}))
+            }}            
+        </li>
+    {% endfor %}
+</ul> 
+{% endblock %}
