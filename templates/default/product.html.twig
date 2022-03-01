@@ -25,6 +25,21 @@
             <p>
                 {{ product.Description }}
             </p>
+            <div id="price">
+                Price: {{ product.price }}
+            </div>
+            {% if product.getComments() | length>0 %}
+                <div id="comments">
+                    {% for comment in product.getComments() %}
+                        <div id="comment">
+                            <div id="comment_user">{{ comment.username }}</div>
+                            <div>Date: {{ comment.create }}</div>
+                            <div>{{ comment.rating }}</div>
+                            <div id="comment_text">{{ comment.text }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
