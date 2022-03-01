@@ -45,7 +45,7 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      */
-    private $Parent;
+    private $Category;
 
     /**
      * @ORM\Column(type="float")
@@ -126,14 +126,14 @@ class Product
         return $this;
     }
 
-    public function getParent(): ?Category
+    public function getCategory(): ?Category
     {
-        return $this->Parent;
+        return $this->Category;
     }
 
-    public function setParent(?Category $Parent): self
+    public function setCategory(?Category $Category): self
     {
-        $this->Parent = $Parent;
+        $this->Category = $Category;
 
         return $this;
     }

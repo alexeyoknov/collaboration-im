@@ -48,7 +48,7 @@ class Category
     private $Children;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="Parent")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="Category")
      */
     private $products;
 
@@ -163,7 +163,7 @@ class Category
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setParent($this);
+            $product->setCategory($this);
         }
 
         return $this;
@@ -173,8 +173,8 @@ class Category
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getParent() === $this) {
-                $product->setParent(null);
+            if ($product->getCategory() === $this) {
+                $product->setCategory(null);
             }
         }
 
