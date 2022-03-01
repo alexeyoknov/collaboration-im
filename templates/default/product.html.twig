@@ -33,8 +33,8 @@
                     {% for comment in product.getComments() %}
                         <div id="comment">
                             <div id="comment_user">{{ comment.username }}</div>
-                            <div>Date: {{ comment.create }}</div>
-                            <div>{{ comment.rating }}</div>
+                            <div>Date: {{ comment.created | format_datetime() }}</div>
+                            <div>Rating: {{ comment.rating }}</div>
                             <div id="comment_text">{{ comment.text }}</div>
                         </div>
                     {% endfor %}
