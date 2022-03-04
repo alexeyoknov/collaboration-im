@@ -56,7 +56,7 @@ class DefaultController extends AbstractController
         $categories = $em->getRepository('App:Category')->findBy(['active'=>true, 'Parent'=>$parent]);
 
         return $this->render('default/leftsidebar.html.twig', [
-            'categories' => $categories            
+            'categories' => $categories
         ]);
     }
 

@@ -78,7 +78,7 @@ if [ -z "${NPM}" ]; then
 fi
 
 ${COMPOSER} install
-bin/console doctrine:schema:update --force
-bin/console doctrine:migrations:migrate
+./bin/console doctrine:schema:update --force
+./bin/console doctrine:migrations:migrate
 npm install
 npm run build

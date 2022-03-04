@@ -2,7 +2,7 @@
 # Files in the packages/ subdirectory configure your dependencies.
 
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
 services:
@@ -20,30 +20,47 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     admin.category:
         class: App\Admin\CategoryAdmin
+        arguments: [~, App\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Category, controller: ~, manager_type: orm, group: admin, label: Category }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Category }
+        public: true
 
     admin.comment:
         class: App\Admin\CommentAdmin
+        arguments: [~, App\Entity\Comment, ~]
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Comment, controller: ~, manager_type: orm, group: admin, label: Comment }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Comment }
+        public: true
 
     admin.order:
         class: App\Admin\OrderAdmin
+        arguments: [~, App\Entity\Order, ~]
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Order, controller: ~, manager_type: orm, group: admin, label: Order }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Order }
+        public: true
 
     admin.order_product:
         class: App\Admin\OrderProductAdmin
+        arguments: [~, App\Entity\OrderProduct, ~]
         tags:
-            - { name: sonata.admin, model_class: App\Entity\OrderProduct, controller: ~, manager_type: orm, group: admin, label: OrderProduct }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: OrderProduct }
+        public: true
 
     admin.product:
         class: App\Admin\ProductAdmin
+        arguments: [~, App\Entity\Product, ~]
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Product, controller: ~, manager_type: orm, group: admin, label: Product }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Product }
+        public: true
+

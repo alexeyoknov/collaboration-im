@@ -28,18 +28,21 @@
             <div id="price">
                 Price: {{ product.price }}
             </div>
-            {% if product.getComments() | length>0 %}
-                <div id="comments">
-                    {% for comment in product.getComments() %}
-                        <div id="comment">
-                            <div id="comment_user">{{ comment.username }}</div>
-                            <div>Date: {{ comment.created | format_datetime() }}</div>
-                            <div>Rating: {{ comment.rating }}</div>
-                            <div id="comment_text">{{ comment.text }}</div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
         </div>
     </div>
+    
+    {% if product.getComments() | length>0 %}
+        <div class="row">
+            <div id="comments col-md-10">
+                {% for comment in product.getComments() %}
+                    <div id="comment" class="row">
+                        <div id="comment_user" class="col-md-2">{{ comment.username }}</div>
+                        <div class="col-md-5">Date: {{ comment.created | date }}</div>
+                        <div class="col-md-3">Rating: {{ comment.rating }}</div>
+                        <div id="comment_text">{{ comment.text }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
