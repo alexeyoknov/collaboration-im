@@ -34,4 +34,4 @@ echo "Password: ${PASS}"
 echo "DB_NAME: ${DB_NAME}"
 echo 
 
-mysql -u${LOGIN} -p${PASS} -h "127.0.0.1" -P 3306 ${DB_NAME} < sql-data.sql
+mysql -u${LOGIN} -p${PASS} -h "127.0.0.1" -P 3306 ${DB_NAME} < "$(dirname ${SCRIPT_PATH})"/sql-data.sql
