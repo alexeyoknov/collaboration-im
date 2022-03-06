@@ -1,0 +1,27 @@
+{#
+    добавить контроллер, который будет выдавать примерно такой список
+#}
+{% for cartItem in items %}
+    <tr class="cart_item">
+        <td class="item-img">
+            <a href="{{ url('product',{'id':cartItem.product.id}) }}"><img src="images/product/01.jpg" alt=""> </a>
+        </td>
+        <td class="item-title"> <a href="{{ url('product',{'id':cartItem.product.id}) }}">{{ cartItem.name }}</a></td>
+        <td class="item-price"> {{ cartItem.price }} </td>
+        <td class="item-qty">
+            <div class="cart-quantity">
+                <div class="product-qty">
+                    <div class="cart-quantity">
+                        <div class="cart-plus-minus">
+                            <div class="dec qtybutton">-</div>
+                            <input value="1" name="qtybutton" class="cart-plus-minus-box" type="text">
+                            <div class="inc qtybutton">+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="total-price"><strong> {{ cartItem.price }} </strong></td>
+        <td class="remove-item"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+    </tr>
+{% endfor %}

@@ -1,0 +1,11 @@
+<div class="prodcut-ratting">
+    {% if rating>0 %}
+        {% for i in 1..rating %}
+            <a href="#"><i class="fa fa-star"></i></a>
+        {% endfor %}
+    {% endif %}
+    {% for i in rating..4 %}
+        <a href="#"><i class="fa fa-star-o"></i></a>
+    {% endfor %}
+    [{{ rating }}]
+</div>

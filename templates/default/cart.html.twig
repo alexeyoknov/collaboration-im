@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Cart - {{ title }} {% endblock %}
+
+{% block body %}
+
+    <!--breadcumb area start -->
+    <div class="breadcumb-area overlay pos-rltv">
+        <div class="bread-main">
+            <div class="bred-hading text-center">
+                <h5>Cart Details</h5> </div>
+            <ol class="breadcrumb">
+                <li class="home"><a title="Go to Home Page" href="/">Home</a></li>
+                <li class="active">Cart</li>
+            </ol>
+        </div>
+    </div>
+    <!--breadcumb area end -->
+    <!--cart-checkout-area start -->
+    
+    <div class="cart-checkout-area  pt-30">
+        <div class="container">
+        <div class="row">
+            <div class="product-area">
+                <div class="title-tab-product-category">
+                    <div class="col-md-12 text-center pb-60">
+                        <ul class="nav heading-style-3" role="tablist">
+                            <li role="presentation" class="active shadow-box"><a href="#cart" aria-controls="cart" role="tab" data-toggle="tab"><span>01</span> Shopping cart</a></li>
+                            <li role="presentation" class="shadow-box"><a href="#checkout" aria-controls="checkout" role="tab" data-toggle="tab"><span>02</span>Checkout</a></li>
+                            <li role="presentation" class="shadow-box"><a href="#complete-order" aria-controls="complete-order" role="tab" data-toggle="tab"><span>03</span> complete-order</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12">
+                    <div class="content-tab-product-category pb-70">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- Tab panel Cart -->
+                            {{ include('default/layouts/cart-layout.html.twig') }}
+                            <!-- Tab panel Checkout -->
+                            {{ include('default/layouts/cart-checkout.html.twig') }}
+                            <!-- Tab panel Checkout-complete -->
+                            {{ include('default/layouts/cart-complete-order.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                                  
+    </div>
+    <!--cart-checkout-area end-->
+
+{% endblock %}

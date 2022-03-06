@@ -45,6 +45,18 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function findNewProducts(int $days)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.created >= :begin')
+            ->andWhere('p.created <= :end')
+            ->setParameter('begin', new \DateTime("-" . $days . " days"))
+            ->setParameter('end', new \DateTime('now'))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

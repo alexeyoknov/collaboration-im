@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DefaultController extends AbstractController
 {
+    const PAGE_NOT_EXIST = 'default/page-not-exist.html.twig';
+
     public function index(EntityManagerInterface $em, Request $request): Response
     {
         $cr = $em->getRepository('App:Category');
@@ -17,17 +19,20 @@ class DefaultController extends AbstractController
         //\var_dump($categories); exit;
 
         return $this->render('default/index.html.twig', [
-            'categories' => $categories
+            'categories' => $categories,
+            'title' => 'Home || Clothing'
         ]);
     }
 
     public function category(int $id, EntityManagerInterface $em)
-    {
-        
+    {        
         $category = $em->getRepository('App:Category')->findOneBy(['id'=>$id,'active'=>true],null,1);
 
-        return $this->render('default/category.html.twig', [
-            'category'=>$category
+        return $this->render(
+            ($category ? 'default/category.html.twig' : self::PAGE_NOT_EXIST), [
+            'category' => $category,
+            'id' => $id,
+            'type' => 'Category'
         ]);
     }
 
@@ -36,8 +41,11 @@ class DefaultController extends AbstractController
         
         $product = $em->getRepository('App:Product')->find($id);
 
-        return $this->render('default/product.html.twig', [
-            'product'=>$product
+        return $this->render(
+            ($product ? 'default/product.html.twig' : self::PAGE_NOT_EXIST), [
+            'product' => $product,
+            'id' => $id,
+            'type' => 'Product'
         ]);
     }
 
@@ -101,6 +109,24 @@ class DefaultController extends AbstractController
         }  
         
         return new Response(implode(' / ', $path) . " /");
-    } 
-        
+    }
+    
+    public function getNewArrivalProducts(EntityManagerInterface $em, int $days=30)
+    {
+        $products = $em->getRepository('App:Product')->findNewProducts($days);
+        //SELECT * FROM `product` WHERE created BETWEEN NOW() - INTERVAL 2 DAY AND NOW(); 
+        return $this->render('default/layouts/parts/single-new-product.html.twig', [
+            'products'=>$products
+        ]);
+    }
+
+    public function getProductRating(int $product_id, EntityManagerInterface $em)
+    {
+        $rating = $em->getRepository('App:Comment')->getAverageRating($product_id);
+        //SELECT * FROM `product` WHERE created BETWEEN NOW() - INTERVAL 2 DAY AND NOW();
+        return $this->render('default/layouts/parts/rating-stars.html.twig', [
+            'rating'=>(count($rating)>0 ? (int)round($rating[0]['avgRate'],0) : 0)
+        ]); 
+    }
+ 
 }

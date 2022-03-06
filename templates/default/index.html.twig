@@ -1,23 +1,24 @@
 {% extends "base.html.twig" %}
 
-{% use "default/leftsidebar.html.twig" %}
-
-{% block title %} Wellcome {% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-    {% for category in categories %}
-        {% if category.id != "" %}
-        <div class="col-md-6">
-            <a href={{ path('category', {id:category.id}) }}>                
-                {{ category.name }}              
-            </a>
+    {{ include('default/layouts/slider.html.twig') }}
 
-            {{ render(controller(
-                'App\\Controller\\DefaultController::getProducts',{'categoryId':category.id}))
-            }}
+    {{ include('default/layouts/delivery.html.twig') }}
 
-        </div>
-        {% endif %}
-    {% endfor %} 
+    {{ include('default/layouts/branding.html.twig') }}
+
+    {{ include('default/layouts/new-arrival.html.twig') }}
+
+    {{ include('default/layouts/banner.html.twig') }}
+
+    {{ include('default/layouts/discount-features-onsale.html.twig') }}
+
+    {{ include('default/layouts/testimonial.html.twig') }}
+
+    {{ include('default/layouts/brand.html.twig') }}
+
+    {{ include('default/layouts/blog.html.twig') }}
 
 {% endblock %}

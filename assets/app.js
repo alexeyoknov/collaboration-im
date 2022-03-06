@@ -6,7 +6,27 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+
+import "./styles/css/bootstrap.min.css";
+import "./styles/css/core.css";
+import "./styles/css/shortcode/shortcodes.css";
+import "./styles/style.css";
+import "./styles/css/responsive.css";
+import "./styles/css/custom.css";
+import "./styles/css/color/skin-default.css";
+
 import './styles/app.css';
 
+
 // start the Stimulus application
-import './bootstrap';
+// import './bootstrap';
+//const $ = require('jquery'); 
+
+// import "./js/vendor/jquery-1.12.0.min.js";
+// const $ = require('jquery');
+// import "./js/bootstrap.min.js";
+// import "./js/slider/jquery.nivo.slider.pack.js";
+// import "./js/slider/nivo-active.js";
+// import "./js/jquery.countdown.min.js";
+// import "./js/plugins.js";
+// import "./js/main.js";

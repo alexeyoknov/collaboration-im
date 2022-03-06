@@ -45,6 +45,19 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAverageRating(int $product_id)
+    {
+        //SELECT product_id, AVG(rating) as avg_rate FROM `comment` GROUP BY product_id; 
+        return $this->createQueryBuilder('c')
+            ->select("AVG(c.rating) as avgRate")
+            ->andWhere("c.product = :prod")
+            ->groupBy('c.product')
+            ->setParameter('prod',$product_id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }    
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */

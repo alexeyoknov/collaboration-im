@@ -1,0 +1,53 @@
+<div role="tabpanel" class="tab-pane fade in active" id="cart">
+    <!-- cart are start-->
+    <div class="cart-page-area">
+       <form method="post" action="#">
+            <div class="table-responsive mb-20">
+                <table class="shop_table-2 cart table">
+                    <thead>
+                        <tr>
+                            <th class="product-thumbnail ">Image</th>
+                            <th class="product-name ">Product Name</th>
+                            <th class="product-price ">Unit Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-subtotal ">Total</th>
+                            <th class="product-remove">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#
+                            здесь обратиться к контроллеру, который вернет
+                            view: default/layouts/parts/cart-item.html.twig
+                        #}
+                    </tbody>
+                </table>
+            </div>
+            <div class="cart-bottom-area">
+                <div class="row">
+                    <div class="col-md-8 col-sm-7 col-xs-12">
+                        <div class="update-coupne-area">
+                            <div class="update-continue-btn text-right pb-20">
+                                <a href="#" class="btn-def btn2">Update Cart</a>
+                                <a href="#" class="btn-def btn2">Continue Shopping</a>
+                            </div>
+                            <div class="coupn-area">
+                                <div class="catagory-title cat-tit-5 mb-20">
+                                    <h3>Coupon</h3> 
+                                    <p>Enter your coupon code if you have one.</p>
+                                </div>                                           
+                                    <div class="input-box input-box-2 mb-20">
+                                        <input type="text" placeholder="Coupn" class="info" name="subject"> 
+                                    </div>
+                                    <a href="#" class="btn-def btn2">Apply Coupn</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-5 col-xs-12">
+                       {{ include('default/layouts/parts/cart-total-area.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- cart are end-->
+</div>

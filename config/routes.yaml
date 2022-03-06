@@ -10,3 +10,6 @@ product:
     path: /product-{id}
     controller: App\Controller\DefaultController::product
 
+cart:
+    path: /cart
+    controller: 'App\Controller\CartController::index'

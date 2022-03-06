@@ -1,0 +1,7 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ type }} {{ id }} not exist {% endblock %}
+{% block body %}
+    <div class="alert alert-danger" role="alert">
+        {{ type }} {{ id }} not exist
+    </div>
+{% endblock %}
