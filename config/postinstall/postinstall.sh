@@ -80,5 +80,5 @@ fi
 ${COMPOSER} install
 ./bin/console doctrine:schema:update --force
 ./bin/console doctrine:migrations:migrate
-npm install
+#npm install
 npm run build
