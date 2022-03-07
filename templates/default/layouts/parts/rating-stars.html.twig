@@ -1,4 +1,7 @@
-<div class="prodcut-ratting {{ addonClass }}">
+{#
+    for list view <div class="prodcut-ratting list-ratting">
+#}
+<div class="prodcut-ratting">
     {% if rating>0 %}
         {% for i in 1..rating %}
             <a href="#"><i class="fa fa-star"></i></a>
