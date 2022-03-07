@@ -14,7 +14,7 @@
   - `npm install`
   - `npm run build`
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
-  
+6. Загрузить тестовые данные, выполнив скрипт [import-data-to-db.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/import-data-to-db.sh)  
   Образец можно взять файле **.env** (находится в корне этого каталога)
 
 ## Настройка виртуального хоста в nginx
@@ -27,6 +27,13 @@
 ```
 где для **server_name** указать своё имя, а для **root** - правильный путь к `collaboration-im`\
 Также может понадобится изменить `fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;`, где необходимо указать правильный путь к файлу сокета
+
+Также, после понижения версии symfony до 4.4 надо указать следующие параметры\
+```
+    fastcgi_buffers 16 16k;
+    fastcgi_buffer_size 32k;
+```
+иначе, будет выдаваться ошибка при заходе в SonataAdmin
 
 ### Подключение конфига и запуск
 
