@@ -3,9 +3,13 @@
     <!-- single product start-->
     <div class="single-product">
         <div class="product-img">
-            <div class="product-label">
-                <div class="new">New</div>
-            </div>
+            {% if labels|length > 0 %}
+                <div class="product-label">
+                    {% for label in labels %}
+                        <div class="{{ label.class }}">{{ label.name }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="single-prodcut-img  product-overlay pos-rltv">
                 <a href="{{ url('product',{'id': product.id}) }}"> <img alt="" src="images/product/01.jpg" class="primary-image"> <img alt="" src="images/product/02.jpg" class="secondary-image"> </a>
             </div>
@@ -22,10 +26,8 @@
             <div class="prodcut-name"> <a href="{{ url('product',{'id': product.id}) }}">{{ product.name }}</a> </div>
 
             <div class="prodcut-ratting-price">
-                {{ render(controller(
-                    'App\\Controller\\DefaultController::getProductRating',{'product_id':product.id}))
-                }} 
-
+                {{ include('default/layouts/parts/rating-star-controller.html.twig') }}
+                
                 <div class="prodcut-price">
                     <div class="new-price"> ${{ product.price }} </div>
                 </div>

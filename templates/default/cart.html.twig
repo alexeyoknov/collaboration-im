@@ -25,9 +25,9 @@
                 <div class="title-tab-product-category">
                     <div class="col-md-12 text-center pb-60">
                         <ul class="nav heading-style-3" role="tablist">
-                            <li role="presentation" class="active shadow-box"><a href="#cart" aria-controls="cart" role="tab" data-toggle="tab"><span>01</span> Shopping cart</a></li>
-                            <li role="presentation" class="shadow-box"><a href="#checkout" aria-controls="checkout" role="tab" data-toggle="tab"><span>02</span>Checkout</a></li>
-                            <li role="presentation" class="shadow-box"><a href="#complete-order" aria-controls="complete-order" role="tab" data-toggle="tab"><span>03</span> complete-order</a></li>
+                            <li role="presentation" class="{% if progress == 'cart' %} active {% endif %} shadow-box"><a href="#cart" aria-controls="cart" role="tab" data-toggle="tab"><span>01</span> Shopping cart</a></li>
+                            <li role="presentation" class="{% if progress == 'checkout' %} active {% endif %} shadow-box"><a href="#checkout" aria-controls="checkout" role="tab" data-toggle="tab"><span>02</span>Checkout</a></li>
+                            <li role="presentation" class="{% if progress == 'pay' %} active {% endif %} shadow-box"><a href="#complete-order" aria-controls="complete-order" role="tab" data-toggle="tab"><span>03</span> complete-order</a></li>
                         </ul>
                     </div>
                 </div>

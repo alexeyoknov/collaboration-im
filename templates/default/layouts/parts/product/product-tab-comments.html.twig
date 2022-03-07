@@ -1,0 +1,25 @@
+{% if product.getComments() | length>0 %}
+    <div role="tabpanel" class="tab-pane fix fade in" id="comments">
+        <div class="review-wraper">
+                
+
+
+                {% for comment in product.getComments() %}
+                    <div id="comment">
+                        <div id="comment_header" class="row">
+                            <div id="comment_user" class="col-md-2">{{ comment.username }}</div>
+                            <div class="col-md-5">Date: {{ comment.created | date }}</div>
+                            <div class="col-md-3">
+                                {% set rating = comment.rating %}
+                                {{ include('default/layouts/parts/rating-stars.html.twig') }}
+                            </div>
+                        </div>
+                        
+                        <div id="comment_text">{{ comment.text }}</div>
+                    </div>
+                        
+                {% endfor %}
+
+        </div>    
+    </div>
+{% endif %}

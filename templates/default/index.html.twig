@@ -3,14 +3,16 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
+
     {{ include('default/layouts/slider.html.twig') }}
 
     {{ include('default/layouts/delivery.html.twig') }}
-
+{#
     {{ include('default/layouts/branding.html.twig') }}
 
+#}
     {{ include('default/layouts/new-arrival.html.twig') }}
-
+{#
     {{ include('default/layouts/banner.html.twig') }}
 
     {{ include('default/layouts/discount-features-onsale.html.twig') }}
@@ -20,5 +22,8 @@
     {{ include('default/layouts/brand.html.twig') }}
 
     {{ include('default/layouts/blog.html.twig') }}
+#}
+
+    
 
 {% endblock %}

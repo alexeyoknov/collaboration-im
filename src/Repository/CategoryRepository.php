@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -43,6 +44,34 @@ class CategoryRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function getAllSubCategories(int $id)
+    {
+
+        /*
+        select  id
+        from    (select * from category
+                order by parent_id, id) category,
+                (select @pv := $id ) initialisation
+        where   find_in_set(parent_id, @pv) > 0
+        and     @pv := concat(@pv, ',', id);
+        */
+        $em = $this->getEntityManager();
+        $sql = 
+        "SELECT  id
+        FROM    (SELECT id, parent_id FROM category
+                ORDER BY parent_id, id) category,
+                (SELECT @pv := " . $id ." ) INITIALISATION
+        WHERE   find_in_set(parent_id, @pv) > 0
+            AND     @pv := concat(@pv, ',', id)";
+
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult('App:Category', 'c');
+        $rsm->addFieldResult('c','id','id');
+
+        return $em->createNativeQuery($sql,$rsm)->getArrayResult();
+
     }
 
     // /**

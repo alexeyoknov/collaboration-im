@@ -3,34 +3,24 @@
 {% block title %} {{ category.name }} {% endblock %}
 
 {% block body %} 
-    <h1>
-        {{ category.name }}
-    </h1>
-    <div id="top-path" class="pb-4">
-        {{ render(controller(
-            'App\\Controller\\DefaultController::getCategoriesPath',{'id':category.id}))
-        }}  
+
+   
+    {% set breadcrumbTitle = 'Categories' %}
+    {% set isProductPage = false %}
+    {{ include('default/layouts/parts/product/product-breadcumbs.html.twig') }}
+    
+    <!--shop main area are start-->
+    <div class="shop-main-area ptb-70">
+        <div class="container">
+            <div class="row">
+                {{ include('default/layouts/sidebar.html.twig') }}
+                {{ include('default/layouts/category-main.html.twig') }}
+            </div>
+        </div>
     </div>
-    {% if category.products|length > 0 %}
-    <div class="row">
-        {% for product in category.products %}
-                
-            <div class="col-md-5 text-center pb-4 ">
-                <a href={{ path('product', {id:product.id}) }} class="text-decoration-none text-reset">
-                    <img src="https://fakeimg.pl/200/?text={{ product.name }}">
-                    <div>
-                        <div id="product-name">{{ product.name }}</div>
-                        <div id="price">
-                            Price: {{ product.price }}
-                        </div>
-                    </div>
-                </a>
-            </div> 
-        {% endfor %}
-    </div>      
-    {% endif %}
+{#
     {{ render(controller(
         'App\\Controller\\DefaultController::getSubCategories',{'parent':category.id}))
     }}          
-  
+#}  
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -55,6 +56,33 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findRandProducts(int $limit)
+    {
+        $em = $this->getEntityManager();
+        $sql = "SELECT * FROM product as p ORDER BY RAND() LIMIT " . $limit;
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult('App:Product', 'p');
+        $rsm->addFieldResult('p','id','id');
+        $rsm->addFieldResult('p','name','name');
+        $rsm->addFieldResult('p','description','description');
+        $rsm->addFieldResult('p','created','created');
+        $rsm->addFieldResult('p','updated','updated');
+        $rsm->addFieldResult('p','price','price');
+        $rsm->addFieldResult('p','active','active');
+
+        return $em->createNativeQuery($sql,$rsm)->getResult();
+    }
+
+    public function findAllProductsInCategory(array $categories)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.Category IN (:ids)')
+            ->setParameter('ids', $categories)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

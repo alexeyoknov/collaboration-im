@@ -4,14 +4,14 @@
         <div class="row">
            <div class="col-xs-12 text-center">
                <div class="heading-title heading-style pos-rltv mb-50 text-center">
-                   <h5 class="uppercase">New Arrival</h5>
+                   <h5 class="uppercase">Random Products</h5>
                </div>
            </div>
            <div class="clearfix"></div>
             <div class="total-new-arrival new-arrival-slider-active carsoule-btn">                           
 
                 {{ render(controller(
-                    'App\\Controller\\DefaultController::getNewArrivalProducts',{'days':20}))
+                    'App\\Controller\\DefaultController::getRandomProducts',{'count':5}))
                 }}     
 
                         

@@ -1,0 +1,12 @@
+<div class="title-tab-product-category">
+    <div class="col-md-12 text-center">
+        <ul class="nav mb-40 heading-style-2" role="tablist">
+            <li role="presentation"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+            <li role="presentation" class="active"><a href="#bestsellr" aria-controls="bestsellr" role="tab" data-toggle="tab">Review</a></li>
+            <li role="presentation"><a href="#specialoffer" aria-controls="specialoffer" role="tab" data-toggle="tab">Tags</a></li>
+            {% if product.getComments() | length>0 %}
+                <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

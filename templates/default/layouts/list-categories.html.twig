@@ -1,0 +1,49 @@
+<!--shop product list start-->
+<div role="tabpanel" class="tab-pane  fade in" id="list">
+    <div class="total-shop-product-list">
+        {% for product in products %}
+            <div class="col-md-12 item">
+                <!-- single product start-->
+                <div class="single-product single-product-list">
+                    <div class="product-img">
+                        <div class="product-label red">
+                            <div class="new">Sale</div>
+                        </div>
+                        <div class="single-prodcut-img  product-overlay pos-rltv">
+                            <a href="{{ url('product',{'id': product.id}) }}"> <img alt="" src="images/product/02.jpg" class="primary-image"> <img alt="" src="images/product/03.jpg" class="secondary-image"> </a>
+                        </div>
+                    </div>
+                    <div class="product-text prodcut-text-list fix">
+                        <div class="prodcut-name list-name montserrat">
+                            <a href="{{ url('product',{'id': product.id}) }}">{{ product.name }} </a>
+                        </div>
+                        <div class="prodcut-ratting-price">
+                            <div class="prodcut-ratting">
+                                {% set viewType = "list-ratting" %}
+                                {{ include('default/layouts/parts/rating-star-controller.html.twig') }}
+                            </div>
+                            <div class="prodcut-price list-price">
+                                <div class="new-price"> ${{ product.price }} </div>
+                                <div class="old-price"> <del>$250</del> </div>
+                            </div>
+                        </div>
+                        <div class="list-product-content">
+                            <p>{{ product.description }}</p>
+                        </div>
+                        <div class="social-icon-wraper mt-25">
+                            <div class="social-icon socile-icon-style-1">
+                                <ul>
+                                    <li><a href="#"><i class="zmdi zmdi-shopping-cart"></i></a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-favorite-outline"></i></a></li>
+                                    <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal" tabindex="0"><i class="zmdi zmdi-eye"></i></a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-repeat"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- single product end-->
+            </div>
+        {% endfor %}  
+    </div>
+</div>        

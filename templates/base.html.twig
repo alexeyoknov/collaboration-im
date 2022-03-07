@@ -15,10 +15,12 @@
     </head>
     <body>
         <!-- Body main wrapper start -->
-        <div class="wrapper home-one">
+        <div class="wrapper">
             {{ include('default/layouts/header.html.twig') }}
 
             {% block body %}{% endblock %}
+
+            {{ include('default/layouts/random-products.html.twig') }}
      
             {{ include('default/layouts/footer.html.twig') }}
 

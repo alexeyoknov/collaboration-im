@@ -1,0 +1,32 @@
+<div class="single-product-description">
+    <div class="sp-top-des">
+        <h3>{{ product.name }}</h3>
+        <div class="prodcut-ratting-price">
+            
+            {{ include('default/layouts/parts/rating-star-controller.html.twig') }} 
+            <div class="prodcut-price">
+                <div class="new-price"> {{ product.price }} </div>
+                <div class="old-price"> <del>$250</del> </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="sp-des">
+        <p>
+            (Краткое описание товара) {{ product.Description }}
+        </p>
+    </div>
+    <div class="sp-bottom-des">
+        <div class="single-product-option">
+            <div class="sort product-type">
+                {{ include('default/layouts/parts/colors.html.twig') }}
+            </div>
+            <div class="sort product-type">
+                {{ include('default/layouts/parts/sizes.html.twig') }}
+            </div>
+        </div>
+        {{ include('default/layouts/parts/product/product-quantity-area.html.twig') }}
+        
+        {{ include('default/layouts/parts/product/product-buttons.html.twig') }}
+    </div>
+</div>

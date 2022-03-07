@@ -3,46 +3,28 @@
 {% block title %} {{ product.name }} {% endblock %}
 
 {% block body %}
-    <h1>
-        {{ product.name }}
-    </h1> 
-    <div id="top-path" class="pb-4">
-        {{ render(controller(
-            'App\\Controller\\DefaultController::getCategoriesPath',
-            {   'id': product.getCategory().getId(),
-                'isProductPage': true
-            }))
-        }}  
-    </div>
-    <div class="row">
-        <div class="col-md-5">
-            <img src="https://fakeimg.pl/400/?text={{ product.name }}">
-        </div>
-        <div class="col-md-5">
-            <h2>
-                Description
-            </h2>
-            <p>
-                {{ product.Description }}
-            </p>
-            <div id="price">
-                Price: {{ product.price }}
-            </div>
+
+    {% set breadcrumbTitle = 'Product Details' %}
+    {% set isProductPage = true %}
+    {{ include('default/layouts/parts/product/product-breadcumbs.html.twig') }}
+
+    <!--single-portfolio-area are start-->
+    <div class="single-protfolio-area ptb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                   {{ include('default/layouts/product-image-area.html.twig') }}
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                   {{ include('default/layouts/product-description-area.html.twig') }}
+                </div>
+            </div>  
         </div>
     </div>
+    <!--single-portfolio-area are start-->
+
+    {{ include('default/layouts/product-tabs-area.html.twig') }}
     
-    {% if product.getComments() | length>0 %}
-        <div class="row">
-            <div id="comments col-md-10">
-                {% for comment in product.getComments() %}
-                    <div id="comment" class="row">
-                        <div id="comment_user" class="col-md-2">{{ comment.username }}</div>
-                        <div class="col-md-5">Date: {{ comment.created | date }}</div>
-                        <div class="col-md-3">Rating: {{ comment.rating }}</div>
-                        <div id="comment_text">{{ comment.text }}</div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
+    {{ include('default/layouts/new-arrival.html.twig') }}
+    
 {% endblock %}
