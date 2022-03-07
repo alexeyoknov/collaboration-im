@@ -40,6 +40,11 @@ class Order
      */
     private $orderProducts;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $orderTotal = 0;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
@@ -124,6 +129,18 @@ class Order
                 $orderProduct->setOrderRef(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrderTotal(): ?float
+    {
+        return $this->orderTotal;
+    }
+
+    public function setOrderTotal(float $orderTotal): self
+    {
+        $this->orderTotal = $orderTotal;
 
         return $this;
     }

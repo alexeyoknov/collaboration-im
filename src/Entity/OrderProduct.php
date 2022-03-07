@@ -32,6 +32,11 @@ class OrderProduct
      */
     private $OrderRef;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $productPrice = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,4 +82,17 @@ class OrderProduct
     {
         return $this->getProduct()->getId() === $product->getProduct()->getId();
     }
+
+    public function getProductPrice(): ?float
+    {
+        return $this->productPrice;
+    }
+
+    public function setProductPrice(float $productPrice): self
+    {
+        $this->productPrice = $productPrice;
+
+        return $this;
+    }
+
 }
