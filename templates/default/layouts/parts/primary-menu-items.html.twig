@@ -1,0 +1,15 @@
+{% for category in categories %}
+  <ul class="single-mega-item coloum-4">
+    {{ app.request.get('_route') }}
+    <li class="menu-title uppercase">{{ category.name }}</li>
+
+    {{ render(controller('App\\Controller\\DefaultController::getCategories',
+      {
+        'view': 'default/layouts/parts/primary-menu-subitems.html.twig',
+        'parent': category.id,
+        'limit': 5
+      }))
+    }}
+
+  </ul>
+{% endfor %}

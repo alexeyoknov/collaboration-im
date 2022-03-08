@@ -1,0 +1,35 @@
+<!--breadcumb area start -->
+<div class="breadcumb-area overlay pos-rltv">
+    <div class="bread-main">
+        <div class="bred-hading text-center">
+            <h5>{{ breadcrumbTitle }}</h5>
+        </div>
+        {% if isProductPage %}
+            {% set cid = product.getCategory().getId() %}
+            {% set activePage = product.name %}
+        {% else %}
+            {% set cid = id %}
+            {% set activePage = category.name %}
+        {% endif %}
+        <ol class="breadcrumb">
+            <li class="home"><a title="Go to Home Page" href="/">Home</a></li>
+            
+            {% if cid %}
+                <li class="home"><a title="Go to Categories Page" href="{{ url('categories') }}">All Categories</a></li>
+                {{
+                    render(controller(
+                        'App\\Controller\\DefaultController::getCategoriesPath',
+                        {   'id': cid,
+                            'isProductPage': isProductPage,
+                            'addLi': true
+                        })
+                    )
+                }}
+                <li class="active">{{ activePage }}</li>
+            {% else %}
+                <li class="active">All Categories</li>
+            {% endif %}
+        </ol>
+    </div>
+</div>
+<!--breadcumb area end -->    

@@ -23,9 +23,20 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function category(int $id, EntityManagerInterface $em)
-    {        
-        $category = $em->getRepository('App:Category')->findOneBy(['id'=>$id,'active'=>true],null,1);
+    /**
+     * Get Category with id or first category if id is null
+     *
+     * @param mixed $id int or null
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function category($id = null, EntityManagerInterface $em)
+    {
+        $fields = ['id'=>$id, 'active'=>true];
+        if (is_null($id))     
+            unset($fields['id']);
+
+        $category = $em->getRepository('App:Category')->findOneBy($fields,null,1);
 
         return $this->render(
             ($category ? 'default/category.html.twig' : self::PAGE_NOT_EXIST), [
@@ -58,13 +69,22 @@ class DefaultController extends AbstractController
         ]);
     }
     
-    public function getAllProductsInCategory(int $categoryId, string $view, EntityManagerInterface $em)
-    {
-        
-        $subcats = $em->getRepository('App:Category')->getAllSubCategories($categoryId);
-        $subcats = \array_merge([$categoryId],$subcats);
-
-        $products = $em->getRepository('App:Product')->findAllProductsInCategory($subcats);
+    /**
+     * Get all products in category
+     *
+     * @param int|null $categoryId Category id
+     * @param string $view
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function getAllProductsInCategory($categoryId, string $view, EntityManagerInterface $em)
+    {                
+        if (!is_null($categoryId)) {
+            $subcats = $em->getRepository('App:Category')->getAllSubCategories($categoryId);
+            $subcats = \array_merge([$categoryId], $subcats);
+            $products = $em->getRepository('App:Product')->findAllProductsInCategory($subcats);
+        } else
+            $products = $em->getRepository('App:Product')->findBy(['active'=>true]);
 
         return $this->render($view, [
             'products' => $products
@@ -72,11 +92,15 @@ class DefaultController extends AbstractController
         
     }
     
-    public function getCategories(EntityManagerInterface $em,$parent=null)
+    public function getCategories(string $view, $parent=null, int $limit=0, EntityManagerInterface $em)
     {
-        $categories = $em->getRepository('App:Category')->findBy(['active'=>true, 'Parent'=>$parent]);
+        $categories = $em->getRepository('App:Category')->findBy(
+            ['active'=>true, 'Parent'=>$parent],
+            null,
+            ($limit===0 ? null : $limit)
+        );
 
-        return $this->render('default/leftsidebar.html.twig', [
+        return $this->render($view, [
             'categories' => $categories
         ]);
     }
@@ -91,7 +115,15 @@ class DefaultController extends AbstractController
         ]);
     } 
 
-    public function getCategoriesPath($id=null, $isProductPage=false, bool $addLi=false)
+    /**
+     * Get Categories Path (breadcrumbs) for category id
+     *
+     * @param int|null $id Category id
+     * @param boolean $isProductPage if true - this is product page
+     * @param boolean $addLi if true - add <li> tags
+     * @return string
+     */
+    public function getCategoriesPath($id=null, bool $isProductPage=false, bool $addLi=false)
     {
         $path = [];
         $liStart = $liEnd = "";

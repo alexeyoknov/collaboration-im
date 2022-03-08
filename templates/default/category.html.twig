@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block title %} {{ category.name }} {% endblock %}
+{% block title %} {% if id %} {{ category.name }} {% else %} All Categories {% endif %} {% endblock %}
 
 {% block body %} 
 
    
     {% set breadcrumbTitle = 'Categories' %}
     {% set isProductPage = false %}
-    {{ include('default/layouts/parts/product/product-breadcumbs.html.twig') }}
+    {{ include('default/layouts/parts/product/product-breadcrumbs.html.twig') }}
     
     <!--shop main area are start-->
     <div class="shop-main-area ptb-70">

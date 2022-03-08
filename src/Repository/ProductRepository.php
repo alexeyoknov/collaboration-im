@@ -46,16 +46,23 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function findNewProducts(int $days)
+    public function findNewProducts(int $days, int $offset = 0, int $limit = 0)
     {
-        return $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->andWhere('p.created >= :begin')
             ->andWhere('p.created <= :end')
             ->setParameter('begin', new \DateTime("-" . $days . " days"))
             ->setParameter('end', new \DateTime('now'))
-            ->getQuery()
-            ->getResult()
-        ;
+            ->getQuery();
+
+        if ($limit>0) {
+            $query->setMaxResults($limit);
+                    
+            if ($offset>0)
+                $query->setFirstResult($offset * $limit);
+        }
+
+        return $query->getResult();
     }
 
     public function findRandProducts(int $limit)
@@ -75,14 +82,21 @@ class ProductRepository extends ServiceEntityRepository
         return $em->createNativeQuery($sql,$rsm)->getResult();
     }
 
-    public function findAllProductsInCategory(array $categories)
+    public function findAllProductsInCategory(array $categories, int $offset = 0, int $limit = 0)
     {
-        return $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->andWhere('p.Category IN (:ids)')
             ->setParameter('ids', $categories)
-            ->getQuery()
-            ->getResult()
-            ;
+            ->getQuery();
+        
+        if ($limit>0) {
+            $query->setMaxResults($limit);
+            
+            if ($offset>0)
+                $query->setFirstResult($offset * $limit);
+        }
+
+        return $query->getResult();
     }
 
     // /**

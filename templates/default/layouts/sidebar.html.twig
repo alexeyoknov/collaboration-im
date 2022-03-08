@@ -16,11 +16,15 @@
             <!--single aside start-->
             <aside class="single-aside catagories-aside">
                 <div class="heading-title aside-title pos-rltv">
-                    <h5 class="uppercase">categories</h5> 
+                    <h5 class="uppercase"><a href="{{ url('categories') }}">categories</a></h5> 
                 </div>
                 <div id="cat-treeview" class="product-cat">
                     {{ render(controller(
-                        'App\\Controller\\DefaultController::getCategories',{'parent':null}))
+                        'App\\Controller\\DefaultController::getCategories',
+                        {
+                          'view': 'default/layouts/parts/leftsidebar.html.twig',
+                          'parent':null
+                        }))
                     }}
                 </div>
             </aside>

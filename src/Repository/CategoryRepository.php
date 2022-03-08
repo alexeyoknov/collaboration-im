@@ -48,15 +48,6 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function getAllSubCategories(int $id)
     {
-
-        /*
-        select  id
-        from    (select * from category
-                order by parent_id, id) category,
-                (select @pv := $id ) initialisation
-        where   find_in_set(parent_id, @pv) > 0
-        and     @pv := concat(@pv, ',', id);
-        */
         $em = $this->getEntityManager();
         $sql = 
         "SELECT  id
@@ -72,6 +63,37 @@ class CategoryRepository extends ServiceEntityRepository
 
         return $em->createNativeQuery($sql,$rsm)->getArrayResult();
 
+    }
+
+    public function getFirstCategories($parent, int $limit = 0)
+    {
+        $query = $this->createQueryBuilder('c');
+        if (is_null($parent))
+            $query->andWhere("c.Parent is NULL");
+        else
+            $query->andWhere("c.Parent = :value")
+                ->setParameter('value', $parent);
+            
+        $query->orderBy('c.id', 'ASC');
+
+        if ($limit > 0)
+            $query->setMaxResults($limit);
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function getFirstCategoriesSql($parent, int $limit = 0)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->andWhere("c.Parent " . (is_null($parent)?"is null":"=" . $parent))
+            //->setParameter('parent', $parent)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+        if ($limit > 0)
+            $query->setMaxResults($limit);
+
+        return $query->getSQL();
     }
 
     // /**

@@ -6,6 +6,10 @@ category:
     path: /catalog-{id}
     controller: App\Controller\DefaultController::category
 
+categories:
+    path: /catalog
+    controller: App\Controller\DefaultController::category
+
 product:
     path: /product-{id}
     controller: App\Controller\DefaultController::product

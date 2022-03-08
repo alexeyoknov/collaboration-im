@@ -1,0 +1,5 @@
+{% for subcategory in categories %}
+
+  <li><a href="{{ url('category',{'id': subcategory.id}) }}">{{ subcategory.name }}</a></li>
+
+{% endfor %}

@@ -1,72 +1,27 @@
 <nav id="primary-menu">
     <ul class="main-menu">
-        <li class="current"><a class="active" href="index.html">Home</a>
-            <ul class="dropdown">
-                <li><a class="active" href="index.html">Home One</a></li>
-                <li><a href="index-2.html">Home Two</a></li>
-                <li><a href="index-boxed-01.html">Home Three (Boxed)</a></li>
-                <li><a href="index-boxed-02.html">Home Four (Boxed)</a></li>
-            </ul>
+        <li {% if app.request.get('_route')=='index' %} class="current" {% endif %}>
+            <a {% if app.request.get('_route')=='index' %} class="active" {% endif %} href="/">Home</a>
         </li>
-        <li class="mega-parent pos-rltv"><a href="shop.html">Man</a>
-            <div class="mega-menu-area mma-800">
-                <ul class="single-mega-item">
-                   <li class="menu-title uppercase">Shirts</li>
-                    <li><a href="shop.html">Shirt 01</a></li>
-                    <li><a href="shop.html">Shirt 02</a></li>
-                    <li><a href="shop.html">Shirt 03</a></li>
-                    <li><a href="shop.html">Shirt 04</a></li>
-                </ul>
-                <ul class="single-mega-item">
-                   <li class="menu-title uppercase">Pants</li>
-                    <li><a href="shop.html">Pant 01</a></li>
-                    <li><a href="shop.html">Pant 02</a></li>
-                    <li><a href="shop.html">Pant 03</a></li>
-                    <li><a href="shop.html">Pant 04</a></li>
-                </ul>
-                <ul class="single-mega-item">
-                   <li class="menu-title uppercase">T-Shirts</li>
-                    <li><a href="shop.html">T-Shirt 01</a></li>
-                    <li><a href="shop.html">T-Shirt 02</a></li>
-                    <li><a href="shop.html">T-Shirt 03</a></li>
-                    <li><a href="shop.html">T-Shirt 04</a></li>
-                </ul>
-                <div class="mega-banner-img">
-                    <a href="single-product.html"><img src="images/banner/banner-fashion-02.jpg" alt=""></a>
-                </div>
+        <li class="mega-parent pos-rltv {% if app.request.get('_route')=='categories' %} current {% endif %}">
+            
+          <a href="{{ url('categories') }}" {% if app.request.get('_route')=='categories' %} class="active" {% endif %}>Categories</a>
+
+          <div class="mega-menu-area mma-970">
+            {{ render(controller('App\\Controller\\DefaultController::getCategories', 
+              {
+                'view': 'default/layouts/parts/primary-menu-items.html.twig',
+                'parent': null,
+                'limit': 4
+              }))
+            }}
+            
+            <div class="mega-banner-img">
+              <a href="single-product.html"><img src="images/banner/banner-fashion-02.jpg" alt=""></a>
             </div>
+          </div>
         </li>
-        <li class="mega-parent pos-rltv"><a href="shop.html">Women</a>
-            <div class="mega-menu-area mma-700">
-                <ul class="single-mega-item">
-                   <li class="menu-title uppercase">Sharees</li>
-                    <li><a href="shop.html">Sharee 01</a></li>
-                    <li><a href="shop.html">Sharee 02</a></li>
-                    <li><a href="shop.html">Sharee 03</a></li>
-                    <li><a href="shop.html">Sharee 04</a></li>
-                    <li><a href="shop.html">Sharee 05</a></li>
-                </ul>
-                <ul class="single-mega-item">
-                   <li class="menu-title uppercase">Lahenga</li>
-                    <li><a href="shop.html">Lahenga 01</a></li>
-                    <li><a href="shop.html">Lahenga 02</a></li>
-                    <li><a href="shop.html">Lahenga 03</a></li>
-                    <li><a href="shop.html">Lahenga 04</a></li>
-                    <li><a href="shop.html">Lahenga 05</a></li>
-                </ul>
-                <ul class="single-mega-item">
-                   <li class="menu-title uppercase">Sandels</li>
-                    <li><a href="shop.html">Sandel 01</a></li>
-                    <li><a href="shop.html">Sandel 02</a></li>
-                    <li><a href="shop.html">Sandel 03</a></li>
-                    <li><a href="shop.html">Sandel 04</a></li>
-                    <li><a href="shop.html">Sandel 05</a></li>
-                </ul>
-                <div class="mega-banner-img">
-                    <a href="single-product.html"><img src="images/banner/banner-fashion.jpg" alt=""></a>
-                </div>
-            </div>
-        </li>
+        
         <li class="mega-parent"><a href="shop.html">Shortcut</a>
             <div class="mega-menu-area mma-970">
                 <ul class="single-mega-item">
