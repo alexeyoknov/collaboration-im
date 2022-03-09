@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 final class CommentAdmin extends AbstractAdmin
 {
@@ -49,7 +50,7 @@ final class CommentAdmin extends AbstractAdmin
             ->add('username')
             ->add('product')
             //->add('created')
-            ->add('text')
+            ->add('text',TextareaType::class, ['attr'=>['class'=>'ckeditor']])
             ->add('rating')
             ;
     }
