@@ -244,7 +244,10 @@ class DefaultController extends AbstractController
         if ($template === '')
             $template = 'default/layouts/parts/categories/categories-pagination.html.twig';
         
-        $maxPages = (int) ceil($itemsCount / $limit);
+        if ($limit > 0)
+            $maxPages = (int) ceil($itemsCount / $limit);
+        else
+            $maxPages = 1;
         /*
             доработать: показывать, например, первые 3 страницы и последнюю
             при текущей странице 1-3: 1,2,3 ... 10
