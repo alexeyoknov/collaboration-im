@@ -82,13 +82,20 @@ class ProductRepository extends ServiceEntityRepository
         return $em->createNativeQuery($sql,$rsm)->getResult();
     }
 
-    public function findAllProductsInCategory(array $categories, int $offset = 0, int $limit = 0)
+    public function findAllProductsInCategory(array $categories, int $offset = 0, int $limit = 0, string $orderBy = 'id', string $orderType = 'ASC')
     {
+        if ( $orderBy === 'rating' ) {
+            // сделать сложный запрос с джоином к комментам и сортировкой, а пока заглушка
+            $orderBy = 'id';
+        }
+
         $query = $this->createQueryBuilder('p')
             ->andWhere('p.Category IN (:ids)')
+            ->orderBy("p." . $orderBy,$orderType)
             ->setParameter('ids', $categories)
             ->getQuery();
         
+        $allProductsCount = count($query->getResult());
         if ($limit>0) {
             $query->setMaxResults($limit);
             
@@ -96,7 +103,10 @@ class ProductRepository extends ServiceEntityRepository
                 $query->setFirstResult($offset * $limit);
         }
 
-        return $query->getResult();
+        return [
+            'query' => $query->getResult(),
+            'totalCount' => $allProductsCount
+        ];
     }
 
     // /**

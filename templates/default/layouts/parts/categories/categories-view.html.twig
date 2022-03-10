@@ -1,7 +1,6 @@
 <label>View</label>
-<select id="input-amount">
-  <option value="10">10</option>
-  <option value="15">15</option>
-  <option value="20">20</option>
-  <option value="25" selected>25</option>
+<select id="input-amount" onchange="location.href='{{ url('categories') }}?itemsPerPage='+this.value;">
+{% for page in pages %}
+  <option value="{{ page }}" {% if page == current %} selected {% endif %}>{{ page }}</option>
+{% endfor %}
 </select>

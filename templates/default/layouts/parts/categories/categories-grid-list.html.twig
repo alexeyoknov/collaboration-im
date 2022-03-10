@@ -1,0 +1,18 @@
+<div class="shop-total-product-area clearfix mt-35">
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+    {{ include('default/layouts/grid-categories.html.twig') }}
+
+    {{ include('default/layouts/list-categories.html.twig') }}
+    
+    {{ render(controller('App\\Controller\\DefaultController::getPagination',
+      {
+        'currentPage': currentPage,
+        'limit': limit,
+        'itemsCount': totalCount
+      }
+      ))
+    }}
+  </div>
+</div>

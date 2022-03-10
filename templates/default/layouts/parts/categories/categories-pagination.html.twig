@@ -1,14 +1,24 @@
+
+{% if maxPages > 1 %}
 <!--pagination start-->
 <div class="col-md-12 col-sm-12 col-xs-12">
+{{ limit }} | {{ currentPage }} | {{ firstPage}} .. {{ lastPage }} | {{ maxPages }}
     <div class="pagination-btn text-center">
         <ul class="page-numbers">
-           <li><a href="#" class="next page-numbers"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
-            <li><span class="page-numbers current">1</span></li>
-            <li><a href="#" class="page-numbers">2</a></li>
-            <li><a href="#" class="page-numbers">3</a></li>
-            <li><a href="#" class="next page-numbers"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
+          <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':prev}) }}" class="next page-numbers"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
+          {% for i in firstPage..lastPage %}
+            {% if i == currentPage %}
+              <li><span class="page-numbers current">{{ i }}</span></li>
+            {% else %}
+              <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':i}) }}" class="page-numbers">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if lastPage < maxPages %}
+            <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':maxPages}) }}" class="page-numbers">{{ maxPages }}</a></li>
+          {% endif %}
+          <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':next}) }}" class="next page-numbers"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
         </ul>
     </div>
 </div>
-
 <!--pagination end-->
+{% endif %}
