@@ -11,6 +11,8 @@
   `./bin/console doctrine:schema:update --force` или `./bin/console doctrine:migrations:migrate`
 5. Зайти через консоль в каталог виртуального хоста и выполнить следующие команды:
   - `composer install`
+  - `npm install`
+  - `npm install file-loader@^6.0.0 --save-dev`
   - `npm run build`
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
 6. Загрузить тестовые данные, выполнив скрипт [import-data-to-db.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/import-data-to-db.sh)  

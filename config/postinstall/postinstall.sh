@@ -80,5 +80,6 @@ fi
 ${COMPOSER} install
 ./bin/console doctrine:schema:update --force
 ./bin/console doctrine:migrations:migrate
-#npm install
+npm install
+npm install file-loader@^6.0.0 --save-dev
 npm run build
