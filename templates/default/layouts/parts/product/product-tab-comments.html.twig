@@ -1,25 +1,26 @@
 {% if product.getComments() | length>0 %}
-    <div role="tabpanel" class="tab-pane fix fade in" id="comments">
-        <div class="review-wraper">
-                
-
-
-                {% for comment in product.getComments() %}
-                    <div id="comment">
-                        <div id="comment_header" class="row">
-                            <div id="comment_user" class="col-md-2">{{ comment.username }}</div>
-                            <div class="col-md-5">Date: {{ comment.created | date }}</div>
-                            <div class="col-md-3">
-                                {% set rating = comment.rating %}
-                                {{ include('default/layouts/parts/rating-stars.html.twig') }}
-                            </div>
-                        </div>
-                        
-                        <div id="comment_text">{{ comment.text|raw }}</div>
-                    </div>
-                        
-                {% endfor %}
-
-        </div>    
-    </div>
+	<div role="tabpanel" class="tab-pane fix fade in" id="comments">
+		<div class="comments-body">
+			<ul>
+				{% for comment in product.getComments() %}
+					<li class="single-comments">
+						<img src="images/blog/author.jpg" alt="">
+						<div class="comments-text">
+							<h5>{{ comment.username }}</h5>
+							<span>Date:
+								{{ comment.created | date }}</span>
+							<p>{{ comment.text|raw }}</p>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<h3 class="sb-title">Комментировать</h3>
+		<div class="lyt-right">
+			<textarea name="text" class="area-text"></textarea>
+			<div class="post-comment input-box">
+				<button type="submit" class="submit">Отправить комментарий</button>
+			</div>
+		</div>
+	</div>
 {% endif %}

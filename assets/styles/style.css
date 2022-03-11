@@ -2127,27 +2127,27 @@ textarea {
 /* 24. comments
 /*----------------------------------------*/
 
-.commets-text h5 {
+.comments-text h5 {
     font-size: 15px;
     margin-bottom: 0;
 }
 .signle-comments > img {
     float: left
 }
-.commets-text {
+.comments-text {
     overflow: hidden;
     padding-left: 15px;
 }
-.signle-comments {
-    display: block;
+.single-comments {
+    display: flex;
     margin-bottom: 40px;
     position: relative;
 }
-.commets-text > p {
+.comments-text > p {
     line-height: 20px;
     margin: 0;
 }
-.commets-text span {
+.comments-text span {
     color: #999;
     font-size: 13px;
 }
@@ -2165,9 +2165,9 @@ textarea {
 .comments-body ul li.signle-comments:last-child {
     margin: 0
 }
-.comments-body ul li:nth-child(2n) {
+/* .comments-body ul li:nth-child(2n) {
     padding-left: 70px
-}
+} */
 .leave-ib input {
     border-color: #e2e2e2;
     border-radius: 0;
@@ -2177,15 +2177,25 @@ textarea {
     margin-bottom: 20px;
     width: 100%;
 }
+
 .lyt-right .area-text {
     border: 1px solid #e2e2e2;
     height: 160px;
     resize: none;
     width: 100%;
-    color: #c6c6c6;
+    /* color: #c6c6c6; */
     padding: 10px;
+    margin-bottom: 10px;
 }
-.post-comment input.submit {
+
+button {
+    border: none;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.post-comment button.submit {
     background: #333333 none repeat scroll 0 0;
     color: #fff;
     height: 40px;
@@ -2195,7 +2205,7 @@ textarea {
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
-.post-comment input.submit:hover {
+.post-comment button.submit:hover {
     color: #ff004d
 }
 .input-box.post-comment {
