@@ -1,6 +1,6 @@
 index:
     path: /
-    controller: 'App\Controller\DefaultController::index'
+    controller: App\Controller\DefaultController::index
 
 category:
     path: /catalog-{id}
@@ -16,4 +16,8 @@ product:
 
 cart:
     path: /cart
-    controller: 'App\Controller\CartController::index'
+    controller: App\Controller\CartController::index
+
+addcomment:
+    path: /comment/add
+    controller: App\Controller\DefaultController::addcomment

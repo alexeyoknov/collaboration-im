@@ -1,11 +1,13 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 class DefaultController extends AbstractController
 {
@@ -267,6 +269,29 @@ class DefaultController extends AbstractController
                 'limit' => $limit
             ]
         );
+    }
+
+    public function addComment(Request $request)
+    {
+        $view = 'product';
+        if ((null !== $request->get('username')) && (null !== $request->get('text'))) {
+            $em = $this->getDoctrine()->getManager();
+            $pr = $this->getDoctrine()->getManager()
+                ->getRepository('App:Product')
+                ->findOneBy(['id'=>$request->get('product_id')]);
+            $em->getRepository('App:Comment');
+            $emC = new Comment;
+            $emC->setUserName($request->get('username'));
+            $emC->setText($request->get('text'));
+            $emC->setRating($request->get('rating'));
+            $emC->setProduct($pr);
+            //->getRepository('App:Comment')->addComment();
+            $em ->persist($emC);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute($view,['id'=>$request->get('product_id')]);
+
     }
  
 }

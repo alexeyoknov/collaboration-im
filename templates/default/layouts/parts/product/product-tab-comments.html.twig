@@ -1,4 +1,4 @@
-{% if product.getComments() | length>0 %}
+{% if product.getComments()|length > 0 %}
 	<div role="tabpanel" class="tab-pane fix fade in" id="comments">
 		<div class="comments-body">
 			<ul>
@@ -7,6 +7,7 @@
 						<img src="images/blog/author.jpg" alt="">
 						<div class="comments-text">
 							<h5>{{ comment.username }}</h5>
+              {{ include('default/layouts/parts/rating-stars.html.twig',{'rating': comment.rating}) }}
 							<span>Date:
 								{{ comment.created | date }}</span>
 							<p>{{ comment.text|raw }}</p>
@@ -17,10 +18,20 @@
 		</div>
 		<h3 class="sb-title">Комментировать</h3>
 		<div class="lyt-right">
-			<textarea name="text" class="area-text"></textarea>
-			<div class="post-comment input-box">
-				<button type="submit" class="submit">Отправить комментарий</button>
-			</div>
+      <form id=addcomment action="{{ url('addcomment',{'product_id': id}) }}" method='POST'>
+        <div>
+          <input type='text' id='username' name='username'/>
+          <select id='rating' name='rating'>
+            {% for i in 1..5 %}
+              <option value={{ i }}>{{ i }}</option>
+            {% endfor %}
+          </select>
+        </div>
+			  <textarea name="text" class="area-text"></textarea>
+			  <div class="post-comment input-box">
+				  <button type="submit" class="submit">Отправить комментарий</button>
+			  </div>
+      </form>
 		</div>
 	</div>
 {% endif %}
