@@ -17,6 +17,8 @@
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
 6. Загрузить тестовые данные, выполнив скрипт [import-data-to-db.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/import-data-to-db.sh)  
   Образец можно взять файле **.env** (находится в корне этого каталога)
+7. Создать пользователя с правами администратора `bin/console fos:user:create --super-admin
+   `
 
 ## Настройка виртуального хоста в nginx
 ### Настройка конфигурации хоста

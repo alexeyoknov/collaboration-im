@@ -82,6 +82,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "egulias/email-validator": {
+        "version": "3.1.2"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
@@ -96,6 +99,9 @@
         "files": [
             "config/packages/fos_ckeditor.yaml"
         ]
+    },
+    "friendsofsymfony/user-bundle": {
+        "version": "v2.2.4"
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.5.0"
@@ -185,6 +191,9 @@
     "sonata-project/cache": {
         "version": "2.2.0"
     },
+    "sonata-project/datagrid-bundle": {
+        "version": "3.5.0"
+    },
     "sonata-project/doctrine-extensions": {
         "version": "1.16.0"
     },
@@ -222,6 +231,9 @@
     },
     "sonata-project/twig-extensions": {
         "version": "1.9.1"
+    },
+    "sonata-project/user-bundle": {
+        "version": "4.15.0"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.7",
@@ -343,6 +355,18 @@
     },
     "symfony/intl": {
         "version": "v4.4.38"
+    },
+    "symfony/mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "bbfc7e27257d3a3f12a6fb0a42540a42d9623a37"
+        },
+        "files": [
+            "config/packages/mailer.yaml"
+        ]
     },
     "symfony/maker-bundle": {
         "version": "1.38",
