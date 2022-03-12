@@ -62,6 +62,11 @@ class Product
      */
     private $active = true;
 
+    /**
+     * @ORM\OneToOne(targetEntity=SonataMediaMedia::class, cascade={"persist", "remove"})
+     */
+    private $image;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
@@ -189,6 +194,18 @@ class Product
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getImage(): ?SonataMediaMedia
+    {
+        return $this->image;
+    }
+
+    public function setImage(?SonataMediaMedia $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

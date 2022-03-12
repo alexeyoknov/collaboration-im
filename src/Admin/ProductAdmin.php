@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 final class ProductAdmin extends AbstractAdmin
@@ -24,6 +25,7 @@ final class ProductAdmin extends AbstractAdmin
             ->add('updated')
             ->add('price')
             ->add('active')
+            ->add('image')
             ;
     }
 
@@ -44,7 +46,9 @@ final class ProductAdmin extends AbstractAdmin
                     'edit' => [],
                     'delete' => [],
                 ],
-            ]);
+            ])
+            ->add('image')
+            ;
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -58,6 +62,7 @@ final class ProductAdmin extends AbstractAdmin
             //->add('updated')
             ->add('price')
             ->add('active')
+            ->add('image')
             ;
     }
 
@@ -71,6 +76,7 @@ final class ProductAdmin extends AbstractAdmin
             ->add('updated')
             ->add('price')
             ->add('active')
+            ->add('image')
             ;
     }
 }

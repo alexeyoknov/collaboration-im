@@ -10,6 +10,7 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
+            SonataMediaBundle: ~
             App:
                 is_bundle: false
                 type: annotation

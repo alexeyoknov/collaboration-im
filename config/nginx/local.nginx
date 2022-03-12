@@ -1,6 +1,9 @@
 server {
     server_name c-im.my;
-    root /www/collaboration-im/public; 
+    root /www/collaboration-im/public;
+
+    fastcgi_buffers 16 16k;
+    fastcgi_buffer_size 32k;
 
     location / {
         # try to serve file directly, fallback to index.php
