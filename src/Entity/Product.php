@@ -63,9 +63,9 @@ class Product
     private $active = true;
 
     /**
-     * @ORM\OneToOne(targetEntity=SonataMediaMedia::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=SonataMediaGallery::class, cascade={"persist", "remove"})
      */
-    private $image;
+    private $gallery;
 
     public function __construct()
     {
@@ -198,15 +198,16 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?SonataMediaMedia
+    public function getGallery(): ?SonataMediaGallery
     {
-        return $this->image;
+        return $this->gallery;
     }
 
-    public function setImage(?SonataMediaMedia $image): self
+    public function setGallery(?SonataMediaGallery $gallery): self
     {
-        $this->image = $image;
+        $this->gallery = $gallery;
 
         return $this;
     }
+
 }

@@ -25,7 +25,7 @@ final class ProductAdmin extends AbstractAdmin
             ->add('updated')
             ->add('price')
             ->add('active')
-            ->add('image')
+            ->add('gallery')
             ;
     }
 
@@ -47,7 +47,7 @@ final class ProductAdmin extends AbstractAdmin
                     'delete' => [],
                 ],
             ])
-            ->add('image')
+            ->add('gallery')
             ;
     }
 
@@ -62,7 +62,7 @@ final class ProductAdmin extends AbstractAdmin
             //->add('updated')
             ->add('price')
             ->add('active')
-            ->add('image')
+            ->add('gallery')
             ;
     }
 
@@ -76,7 +76,7 @@ final class ProductAdmin extends AbstractAdmin
             ->add('updated')
             ->add('price')
             ->add('active')
-            ->add('image')
+            ->add('gallery')
             ;
     }
 }
