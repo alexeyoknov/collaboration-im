@@ -9,9 +9,9 @@
                         <div class="product-label red">
                             <div class="new">Sale</div>
                         </div>
-                        <div class="single-prodcut-img  product-overlay pos-rltv">
-                            <a href="{{ url('product',{'id': product.id}) }}"> <img alt="" src="images/product/02.jpg" class="primary-image"> <img alt="" src="images/product/03.jpg" class="secondary-image"> </a>
-                        </div>
+                      
+                        {% include "default/layouts/parts/product-image.html.twig" %}
+                      
                     </div>
                     <div class="product-text prodcut-text-list fix">
                         <div class="prodcut-name list-name montserrat">

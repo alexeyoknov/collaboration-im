@@ -3,41 +3,42 @@
         <div class="tab_thumbnail" data-tabs="tabs">
             <div class="thumbnail-carousel">
                 <ul>
-                    <li class="active">
-                        <a href="#view11" class="shadow-box" aria-controls="view11" data-toggle="tab"><img src="images/product/01.jpg" alt="" /></a></li>
-                    <li>
-                        <a href="#view22" class="shadow-box" aria-controls="view22" data-toggle="tab"><img src="images/product/02.jpg" alt="" /></a></li>
-                    <li>
-                        <a href="#view33" class="shadow-box" aria-controls="view33" data-toggle="tab"><img src="images/product/03.jpg" alt="" /></a></li>
-                    <li>
-                        <a href="#view44" class="shadow-box" aria-controls="view44" data-toggle="tab"><img src="images/product/04.jpg" alt="" /></a></li>
+                  {% if product.gallery %}
+                    {% for ind, im in product.gallery.getGalleryHasMedias()  %}
+                      <li {% if ind == 0 %}class="active" {% endif %}>
+                          <a href="#view{{ ind }}" class="shadow-box" aria-controls="view{{ ind }}" data-toggle="tab">
+                            <img src="{{ sonata_path(im, 'small') }}" alt="" />
+                          </a>
+                      </li>
+                    {% endfor %}
+                  {% else %}
+                    <a href="#view" class="shadow-box" aria-controls="view" data-toggle="tab">
+                      <img src="https://fakeimg.pl/80/?text=no%20image" alt="" />
+                    </a>
+                  {% endif %}
                 </ul>
             </div>
         </div>
     </div>
     <div class="tab-content active-portfolio-area pos-rltv">
-        <div class="social-tag">
-          <a href="#"><i class="zmdi zmdi-share"></i></a>
-        </div>
-        <div role="tabpanel" class="tab-pane active" id="view11">
+      <div class="social-tag">
+        <a href="#"><i class="zmdi zmdi-share"></i></a>
+      </div>
+      {% if product.gallery %}
+        {% for ind, im in product.gallery.getGalleryHasMedias() %}
+          <div role="tabpanel" class="tab-pane active" id="view{{ ind }}">
             <div class="product-img">
-                <a class="fancybox" data-fancybox-group="group" href="images/product/01.jpg"><img src="images/product/01.jpg" alt="Single portfolio" /></a>
+              <a class="fancybox" data-fancybox-group="group" href="{{ sonata_path(im, 'big') }}"><img src="{{ sonata_path(im, 'big') }}" alt="Single portfolio" /></a>
             </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="view22">
+          </div>
+         {% endfor %}
+        {% else %}
+          <div role="tabpanel" class="tab-pane active" id="view">
             <div class="product-img">
-                <a class="fancybox" data-fancybox-group="group" href="images/product/02.jpg"><img src="images/product/02.jpg" alt="Single portfolio" /></a>
+              <a class="fancybox" data-fancybox-group="group" href=""><img src="https://fakeimg.pl/400/?text=no%20image" alt="Single portfolio" /></a>
             </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="view33">
-            <div class="product-img">
-                <a class="fancybox" data-fancybox-group="group" href="images/product/03.jpg"><img src="images/product/03.jpg" alt="Single portfolio" /></a>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="view44">
-            <div class="product-img">
-                <a class="fancybox" data-fancybox-group="group" href="images/product/04.jpg"><img src="images/product/04.jpg" alt="Single portfolio" /></a>
-            </div>
-        </div>
+          </div>
+        {% endif %}
+        
     </div>
 </div>
