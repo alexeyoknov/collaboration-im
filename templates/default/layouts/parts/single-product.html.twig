@@ -10,9 +10,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            <div class="single-prodcut-img  product-overlay pos-rltv">
-                <a href="{{ url('product',{'id': product.id}) }}"> <img alt="" src="images/product/01.jpg" class="primary-image"> <img alt="" src="images/product/02.jpg" class="secondary-image"> </a>
-            </div>
+            {% include "default/layouts/parts/product-image.html.twig" %}
             <div class="product-icon socile-icon-tooltip text-center">
                 <ul>
                     <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>

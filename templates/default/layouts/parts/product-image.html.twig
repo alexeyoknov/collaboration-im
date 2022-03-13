@@ -1,0 +1,20 @@
+<div class="single-prodcut-img  product-overlay pos-rltv">
+  {% set classes = ['primary', 'secondary'] %}
+  {% set imgCount = 0 %}
+  <a href="{{ url('product',{'id': product.id}) }}">
+    {% if product.gallery %}
+      {% for ind, im in product.gallery.getGalleryHasMedias() if imgCount < 2 and im.media.enabled %}
+        <img alt="" src="{{ sonata_path(im.media, 'product') }}"
+             class="{{ classes[imgCount] }}-image"
+        >
+        {%  set imgCount = imgCount + 1 %}
+      {% endfor %}
+    {% endif %}
+    {% set noImageIndex = 2 - imgCount %}
+    {% if noImageIndex<2 %}
+      {% for i in noImageIndex..1 %}
+        <img alt="" src="https://fakeimg.pl/272x390/?text=no%20image{{ i+1 }}" class="{{ classes[i] }}-image">
+      {% endfor %}
+    {% endif %}
+  </a>
+</div>

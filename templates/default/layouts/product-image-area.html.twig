@@ -4,10 +4,10 @@
             <div class="thumbnail-carousel">
                 <ul>
                   {% if product.gallery %}
-                    {% for ind, im in product.gallery.getGalleryHasMedias()  %}
+                    {% for ind, im in product.gallery.getGalleryHasMedias() if im.media.enabled %}
                       <li {% if ind == 0 %}class="active" {% endif %}>
                           <a href="#view{{ ind }}" class="shadow-box" aria-controls="view{{ ind }}" data-toggle="tab">
-                            <img src="{{ sonata_path(im, 'product') }}" alt="" />
+                            <img src="{{ sonata_path(im.media, 'product') }}" alt="" />
                           </a>
                       </li>
                     {% endfor %}
@@ -25,12 +25,14 @@
         <a href="#"><i class="zmdi zmdi-share"></i></a>
       </div>
       {% if product.gallery %}
-        {% for ind, im in product.gallery.getGalleryHasMedias() %}
-          <div role="tabpanel" class="tab-pane {% if ind == 0 %} active {% endif %}" id="view{{ ind }}">
+        {% set curIndex = 0 %}
+        {% for ind, im in product.gallery.getGalleryHasMedias() if im.media.enabled %}
+          <div role="tabpanel" class="tab-pane {% if curIndex == 0 %} active {% endif %}" id="view{{ ind }}">
             <div class="product-img">
-              <a class="fancybox" data-fancybox-group="group" href="{{ sonata_path(im, 'product') }}"><img src="{{ sonata_path(im, 'product') }}" alt="Single portfolio" /></a>
+              <a class="fancybox" data-fancybox-group="group" href="{{ sonata_path(im.media, 'product') }}"><img src="{{ sonata_path(im.media, 'product') }}" alt="Single portfolio" /></a>
             </div>
           </div>
+          {% set curIndex = curIndex + 1  %}
          {% endfor %}
         {% else %}
           <div role="tabpanel" class="tab-pane active" id="view">
