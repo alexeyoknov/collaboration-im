@@ -7,13 +7,13 @@
                     {% for ind, im in product.gallery.getGalleryHasMedias()  %}
                       <li {% if ind == 0 %}class="active" {% endif %}>
                           <a href="#view{{ ind }}" class="shadow-box" aria-controls="view{{ ind }}" data-toggle="tab">
-                            <img src="{{ sonata_path(im, 'small') }}" alt="" />
+                            <img src="{{ sonata_path(im, 'product') }}" alt="" />
                           </a>
                       </li>
                     {% endfor %}
                   {% else %}
                     <a href="#view" class="shadow-box" aria-controls="view" data-toggle="tab">
-                      <img src="https://fakeimg.pl/80/?text=no%20image" alt="" />
+                      <img src="https://fakeimg.pl/272x390/?text=no%20image" alt="no image" />
                     </a>
                   {% endif %}
                 </ul>
@@ -26,16 +26,16 @@
       </div>
       {% if product.gallery %}
         {% for ind, im in product.gallery.getGalleryHasMedias() %}
-          <div role="tabpanel" class="tab-pane active" id="view{{ ind }}">
+          <div role="tabpanel" class="tab-pane {% if ind == 0 %} active {% endif %}" id="view{{ ind }}">
             <div class="product-img">
-              <a class="fancybox" data-fancybox-group="group" href="{{ sonata_path(im, 'big') }}"><img src="{{ sonata_path(im, 'big') }}" alt="Single portfolio" /></a>
+              <a class="fancybox" data-fancybox-group="group" href="{{ sonata_path(im, 'product') }}"><img src="{{ sonata_path(im, 'product') }}" alt="Single portfolio" /></a>
             </div>
           </div>
          {% endfor %}
         {% else %}
           <div role="tabpanel" class="tab-pane active" id="view">
             <div class="product-img">
-              <a class="fancybox" data-fancybox-group="group" href=""><img src="https://fakeimg.pl/400/?text=no%20image" alt="Single portfolio" /></a>
+              <a class="fancybox" data-fancybox-group="group" href=""><img src="https://fakeimg.pl/400/?text=no%20image" alt="No image" /></a>
             </div>
           </div>
         {% endif %}
