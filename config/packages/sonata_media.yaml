@@ -11,6 +11,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 small: { width: 100 , quality: 70 }
+                product: { width: 272, height: 390, quality: 70 }
                 big: { width: 500 , quality: 70 }
         product:
             providers:
