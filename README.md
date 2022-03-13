@@ -83,4 +83,8 @@ GRANT ALL PRIVILEGES ON db_name.* TO 'dbusername'@'127.0.0.1';
   ```
   ./bin/console doctrine:schema:update --force
   ```
-
+## Регенерация размеров изображений
+Размеры изображений можно найти в **config/packages/sonata_media.yaml**
+```
+ bin/console sonata:media:sync-thumbnails sonata.media.provider.image default
+```
