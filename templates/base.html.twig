@@ -25,7 +25,10 @@
             {{ include('default/layouts/footer.html.twig') }}
 
             {% block javascripts %}
-                {{ encore_entry_script_tags('app') }}
+              {{ encore_entry_script_tags('app') }}
+             
+              <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+              <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
             {% endblock %}
             
         </div>
@@ -33,7 +36,7 @@
             <!-- Placed js at the end of the document so the pages load faster -->
 
         <!-- jquery latest version -->
-        <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
+        
         <!-- Bootstrap framework js -->
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <!-- Slider js -->
@@ -45,6 +48,7 @@
         <script src="{{ asset('js/plugins.js') }}"></script>
         <!-- Main js file that contents all jQuery plugins activation. -->
         <script src="{{ asset('js/main.js') }}"></script>
+        
     </body>
 
 </html>

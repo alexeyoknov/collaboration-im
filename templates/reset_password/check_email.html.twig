@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+  {#
+  {{ include('default/layouts/parts/product/product-breadcrumbs.html.twig',
+    {'breadcrumbTitle':'Login verification info', 'isProductPage':false, 'id':null}) }}
+   #}
+  <div class="account-area ptb-80">
+    <div class="container">
+      <div class="row" style="display:flex; justify-content:center">
+        <div class="col-sm-6 col-xs-12">
+          <p>
+              If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+              This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+          </p>
+          <p>If you don't receive an email please check your spam folder or
+            <a href="{{ path('app_forgot_password_request') }}" class="btn-def btn2">try again</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

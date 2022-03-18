@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+{#  
+  {{ include('default/layouts/parts/product/product-breadcrumbs.html.twig',
+    {'breadcrumbTitle':'Reset password', 'isProductPage':false, 'id':null}) }}
+#}  
+  <div class="account-area ptb-80">
+    <div class="container">
+      <div class="row" style="display:flex; justify-content:center">
+        <div class="col-sm-6 col-xs-12">
+          {% for flash_error in app.flashes('reset_password_error') %}
+              <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+          {% endfor %}
+  
+          {{ form_start(requestForm,{ 'attr': {'class': 'login-side'} }) }}
+            {{ form_row(requestForm.email,{'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+            <div>
+                <small>
+                    Enter your email address and we will send you a
+                    link to reset your password.
+                </small>
+            </div>
+    
+            <a href="" class="btn-def btn2" onclick="document.reset_password_request_form.submit(); return false;">Send password reset email</a>
+        {{ form_end(requestForm) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

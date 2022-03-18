@@ -29,6 +29,20 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    app.form.registration:
+        class: AppFormRegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    app.form.userlogin:
+        class: AppFormLoginType
+        tags:
+            - { name: form.type, alias: app_user_login }
+    
+    app.form.profile:
+        class: AppFormProfileType
+        tags:
+            - { name: form.type, alias: app_user_profile }
 
     admin.category:
         class: App\Admin\CategoryAdmin

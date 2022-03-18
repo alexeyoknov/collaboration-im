@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+  {#
+    {{ include('default/layouts/parts/product/product-breadcrumbs.html.twig',
+        {'breadcrumbTitle':'Registration', 'isProductPage':false, 'id':null}) }}
+  #}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    
+<!-- Account Area Start -->
+<div class="account-area ptb-80">
+  <div class="container">
+    <div class="row" style="display:flex; justify-content:center">
+      <div class="col-sm-6 col-xs-12">
+        {{ form_start(registrationForm, { 'attr': {'class': 'login-side'} }) }}
+          <h3>Registration</h3>
+          <div class="input-box mb-20">
+            {{ form_row(registrationForm.username, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+          <div class="input-box mb-20">
+            {{ form_row(registrationForm.email, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+          <div class="input-box mb-20">
+            {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+          <div class="input-box mb-20">
+            {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+          {#  
+          <div class="input-box mb-20">
+            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'info'}}) }}
+          </div>
+          #}
+          <div class="frm-action raw" style="display: flex; justify-content: space-between">
+            <div class="input-box tci-box">
+              <a href="" onclick="document.registration_form.submit()" class="btn-def btn2">Register</a>
+            </div>
+
+            <div class="input-box tci-box">
+              <a href="{{ url('app_forgot_password_request') }}" class="btn-def btn2">Reset password</a>
+            </div>
+            <div class="input-box tci-box">
+              <a href="{{ url('app_login') }}" class="btn-def btn2">Login</a>
+            </div>
+          </div>
+        {{ form_end(registrationForm) }}
+      </div>
+    </div>
+  </div>
+</div>        
+{% endblock %}

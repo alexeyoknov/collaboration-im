@@ -1,6 +1,77 @@
 <div class="login-register-area">
     <ul>
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Register</a></li>
+        {% set isAdmin = is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN')  %}
+        {%  set isLogined = isAdmin or is_granted('ROLE_USER') %}
+
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <li><a href="{{ url('app_userprofile') }}">
+            {{ app.user.username }}
+          </a>
+        </li>
+        {% if isAdmin %}
+          <li><a href="/admin">Admin Page</a></li>
+        {% endif %}
+        <li><a href="{{ url('app_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+          </a></li>
+      {% else %}
+        <li><a href="{{ url('app_login') }}">
+            {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+          </a></li>
+        <li><a href="{{ url('app_register') }}">Register</a></li>
+      {% endif %}
     </ul>
+  {#
+  {% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+      {% for message in messages %}
+        <div class="flash-{{ type }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+  {# 
+  <div class="container theme-showcase" role="main">
+    <div class="jumbotron">
+      {% block name %}
+      {% endblock name %}
+
+      {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+          {% for message in messages %}
+            <div class="flash-{{ type }} alert-{{ type }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </div>
+  #}
+  {#
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li><a href="{{ path('fos_user_profile_edit') }}">
+                Logged in as {{ app.user.username }}
+              </a>
+            </li>
+            <li><a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+              </a>
+            </li>
+          {% else %}
+            <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  #}
 </div>

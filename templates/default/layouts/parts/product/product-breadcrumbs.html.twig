@@ -9,7 +9,13 @@
             {% set activePage = product.name %}
         {% else %}
             {% set cid = id %}
-            {% set activePage = category.name %}
+            {% if id %}
+              {% set activePage = category.name %}
+              {% set allCategories = 'All Categories' %}
+            {% else %}
+              {% set activePage = breadcrumbTitle %}
+              {% set allCategories = breadcrumbTitle %}
+            {% endif %}
         {% endif %}
         <ol class="breadcrumb">
             <li class="home"><a title="Go to Home Page" href="/">Home</a></li>
@@ -27,7 +33,7 @@
                 }}
                 <li class="active">{{ activePage }}</li>
             {% else %}
-                <li class="active">All Categories</li>
+                <li class="active">{{ allCategories }}</li>
             {% endif %}
         </ol>
     </div>

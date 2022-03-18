@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+{#   
+  {{ include('default/layouts/parts/product/product-breadcrumbs.html.twig',
+      {'breadcrumbTitle':'Login', 'isProductPage':false, 'id':null}) }}
+#}  
+  <!-- Account Area Start -->
+  <div class="account-area ptb-80">
+    <div class="container">
+      <div class="row" style="display:flex; justify-content:center">
+        <div class="col-sm-6 col-xs-12">
+          {{ form_start(loginForm, { 'attr': {'class': 'login-side'} }) }}
+          <h3>Login</h3>
+          {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+          {% endif %}
+          <div class="input-box mb-20">
+            {{ form_row(loginForm.username, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+          {#
+          <div class="input-box mb-20">
+            {{ form_row(loginForm.email, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+          #}
+          <div class="input-box mb-20">
+            {{ form_row(loginForm.plainPassword, {'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+          </div>
+
+          {#
+          <div class="input-box mb-20">
+            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'info'}}) }}
+          </div>
+          #}
+          <input type="hidden" name="_csrf_token"
+                 value="{{ csrf_token('authenticate') }}"
+          >
+          <div class="frm-action raw" style="display: flex; justify-content: space-between">
+            <div class="input-box tci-box">
+              <a href="" onclick="document.login_form.submit(); return false" class="btn-def btn2">Login</a>
+            </div>
+            <div class="input-box tci-box">
+              <a href="{{ url('app_forgot_password_request') }}" class="btn-def btn2">Reset password</a>
+            </div>
+            <div class="input-box tci-box">
+              <a href="{{ url('app_register') }}" class="btn-def btn2">Registration</a>
+            </div>
+          </div>
+          {{ form_end(loginForm) }}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+    
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+{% endblock %}

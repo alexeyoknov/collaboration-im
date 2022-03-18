@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+  <div class="account-area ptb-80">
+    <div class="container">
+      <div class="row" style="display:flex; justify-content:center">
+        <div class="col-sm-6 col-xs-12">
+          {{ form_start(resetForm,{ 'attr': {'class': 'login-side'} }) }}
+              {{ form_row(resetForm.plainPassword,{'attr': {'class': 'info'}, 'label_attr': {'class': 'control-label'}}) }}
+              <button class="btn btn-primary">Reset password</button>
+          {{ form_end(resetForm) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

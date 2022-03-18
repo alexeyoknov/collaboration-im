@@ -19,6 +19,9 @@ security:
                 path:           /admin/logout
                 target:         /admin/login
             anonymous:          true
+            guard:
+                authenticators:
+                    - App\Security\AppCustomAuthentificatorAuthenticator
 
         # -> end custom configuration
 
@@ -35,8 +38,13 @@ security:
                 use_forward:    false
                 check_path:     /login_check
                 failure_path:   null
-            logout:             true
+            #logout:             true
             anonymous:          true
+            guard:
+                authenticators:
+                    - App\Security\AppCustomAuthentificatorAuthenticator
+            logout:
+                path: app_logout
 
     role_hierarchy:
         ROLE_ADMIN: [ ROLE_USER, ROLE_SONATA_ADMIN ]
