@@ -8,10 +8,10 @@
 4. Создать у себя файл `.env.local`, в котором нужно указать настройки подключения к БД: имя БД (**db_name**), имя пользователя (**dbusername**) и пароль (**password**) (доп. информацию см. [здесь](#настройка-бд) ) \
   `DATABASE_URL="mysql://dbusername:password@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"`\
   после этого можно выполнить следующие команды:\
-  `./bin/console doctrine:schema:update --force` или `./bin/console doctrine:migrations:migrate`
+  `./bin/console doctrine:schema:update --force` или `./bin/console doctrine:migrations:migrate`\
+также для почтового сервера надо добавить `MAILER_DSN=smtp://username:password@smtp.example.com:465` со своими значениями
 5. Зайти через консоль в каталог виртуального хоста и выполнить следующие команды:
   - `composer install`
-  - `npm install`
   - `npm install file-loader@^6.0.0 --save-dev`
   - `npm run build`
   либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)

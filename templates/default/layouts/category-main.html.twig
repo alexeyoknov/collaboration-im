@@ -1,45 +1,49 @@
-<!--main-shop-product start-->
-<div class="col-md-9 col-sm-8 col-xs-12">
-  <div class="shop-wraper">
-    <div class="col-xs-12">
-      <div class="shop-area-top">
-        <div class="row">
-          <div class="col-lg-6 col-md-9 col-sm-9 col-xs-12">
-            <div class="sort product-show">
-
-              {{ render(controller('App\\Controller\\DefaultController::getViewsCount',
-                {
-                  'template': 'default/layouts/parts/categories/categories-view.html.twig',
-                  'currentItemsPerPage': limit
-                }
-                ))
-              }}
-
-            </div>
-            <div class="sort product-type">
-              {{ include('default/layouts/parts/categories/categories-sort.html.twig') }}
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            {{ include('default/layouts/parts/categories/categories-view-type.html.twig') }}
-          </div>
-          <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
-            <div class="total-showing text-right">
-              Showing - <span>{{ showFrom }}</span> to
-              <span>
-                {% if showTo > totalCount %}
-                  {{ totalCount }}
-                {% else %}
-                  {{ showTo }}
-                {% endif %}
-              </span>  Of  Total <span>{{ totalCount }}</span>
-            </div>
-          </div>
+<div class="col-xs-12">
+  <div class="shop-area-top">
+    <div class="row">
+      <div class="col-lg-6 col-md-9 col-sm-9 col-xs-12">
+        <div class="sort product-show">
+          {{ render(controller('App\\Controller\\DefaultController::getViewsCount',
+            {
+              'template': 'default/layouts/parts/categories/categories-view.html.twig',
+              'currentItemsPerPage': limit
+            }
+            ))
+          }}
+        </div>
+        <div class="sort product-type">
+          {{ include('default/layouts/parts/categories/categories-sort.html.twig') }}
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        {{ include('default/layouts/parts/categories/categories-view-type.html.twig') }}
+      </div>
+      <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
+        <div class="total-showing text-right">
+          Showing - <span>{{ showFrom }}</span> to
+          <span>
+            {% if showTo > totalCount %}
+              {{ totalCount }}
+            {% else %}
+              {{ showTo }}
+            {% endif %}
+          </span>  Of  Total <span>{{ totalCount }}</span>
         </div>
       </div>
     </div>
-    <div class="clearfix"></div>
-    {{ include('default/layouts/parts/categories/categories-grid-list.html.twig') }}
   </div>
 </div>
-<!--main-shop-product start-->
+<div class="clearfix"></div>
+{{ include('default/layouts/parts/categories/categories-grid-list.html.twig') }}
+<input type=hidden id=totalItemsCount value={{ totalCount }} />
+<div id='pagination'>
+{{
+  render(controller('App\\Controller\\DefaultController::getPagination',
+    {
+        'currentPage': currentPage,
+        'limit': limit,
+        'itemsCount': totalCount
+    }
+  ))
+}}
+</div>

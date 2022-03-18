@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\Routing\Annotation\Route;
+use Twig\Node\Expression\Test\NullTest;
 
 class DefaultController extends AbstractController
 {
@@ -45,7 +46,7 @@ class DefaultController extends AbstractController
             'category' => $category,
             'id' => $id,
             'type' => 'Category',
-            'itemsPerPage' => ((null !== $request->get('itemsPerPage')) ? $request->get('itemsPerPage') : 0),
+            'itemsPerPage' => ((null !== $request->get('itemsPerPage')) ? $request->get('itemsPerPage') : 25),
             'currentPage' => ((null !== $request->get('currentPage')) ? $request->get('currentPage') : 1)
         ]);
     }
@@ -75,17 +76,19 @@ class DefaultController extends AbstractController
     
     /**
      * Get all products in category
-     *
+     * 
      * @param int|null $categoryId Category id
      * @param string $view Twig file
+     * @param int $offset Page Number
+     * @param int $limit Items Per Page
      * @param string $orderBy Order field
      * @param string $orderType Order direction ASC | DESC
-     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function getAllProductsInCategory($categoryId, string $view, int $offset = 0, int $limit = 0, string $orderBy = 'id', string $orderType = 'ASC', EntityManagerInterface $em)
-    {                
-        if (!is_null($categoryId)) {
+    public function getAllProductsInCategory($categoryId, string $view, int $offset = 0, int $limit = 0, string $orderBy = 'id', string $orderType = 'ASC'): Response
+    {       
+        $em = $this->getDoctrine()->getManager();         
+        if (!is_null($categoryId) && ($categoryId !== 'all')) {
             $subcats = $em->getRepository('App:Category')->getAllSubCategories($categoryId);
             $subcats = \array_merge([$categoryId], $subcats);
             $productsRes = $em->getRepository('App:Product')->findAllProductsInCategory($subcats);
@@ -103,15 +106,33 @@ class DefaultController extends AbstractController
                 }
             }
 
-        return $this->render($view, [
+        $result = [
             'products' => $productsRes['query'],
             'limit' => $limit,
             'totalCount' => $productsRes['totalCount'],
             'currentPage' => ($offset+1),
             'showFrom' => ($limit * $offset + 1),
             'showTo' => ($limit>0 ? ($limit*($offset+1)) : $productsRes['totalCount'])
-        ]);
+        ];
+
+        return $this->render($view, $result);
         
+    }
+
+    /**
+     * @Route("/all-products", name="all_products", methods={"POST"}) 
+     * 
+     */
+    public function getAllProductsAjax(Request $request)
+    { 
+        return $this->getAllProductsInCategory(
+            $request->get('categoryId',null),
+            $request->get('view',''),
+            $request->get('offset',0),
+            $request->get('limit',0),
+            $request->get('orderBy','id'),
+            $request->get('orderType','ASC')
+        );
     }
     
     public function getCategories(string $view, $parent=null, int $limit=0, EntityManagerInterface $em)
@@ -221,7 +242,7 @@ class DefaultController extends AbstractController
      * @param integer $limit Limit of products
      * @return Response
      */
-    public function getRandomProducts(EntityManagerInterface $em, int $limit=5)
+    public function getRandomProducts(EntityManagerInterface $em, int $limit=5): Response
     {
         $products = $em->getRepository('App:Product')->findRandProducts($limit);
         //SELECT * FROM `product` WHERE created BETWEEN NOW() - INTERVAL 2 DAY AND NOW(); 
@@ -232,7 +253,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function getViewsCount(string $template, int $currentItemsPerPage = 25)
+    public function getViewsCount(string $template, int $currentItemsPerPage = 25): Response
     {
         return $this->render($template,[
             'pages' => [5,10,15,20,25],
@@ -241,7 +262,7 @@ class DefaultController extends AbstractController
         );
     }
 
-    public function getPagination(string $template='', int $currentPage=1, int $limit=10, int $itemsCount=0)
+    public function getPagination(string $template='', int $currentPage=1, int $limit=10, int $itemsCount=0): Response
     {
         if ($template === '')
             $template = 'default/layouts/parts/categories/categories-pagination.html.twig';
@@ -268,6 +289,17 @@ class DefaultController extends AbstractController
                 'next' => (($currentPage===$maxPages) ? 1 : ($currentPage+1)),
                 'limit' => $limit
             ]
+        );
+    }
+
+    /**
+     * @Route("/category-pagination", name="cat_pagination", methods={"POST"}) 
+     * 
+     */
+    public function getAjaxPagination(Request $request)
+    {
+        return $this->getPagination(
+            '',$request->get('currentPage',1),$request->get('limit',0),$request->get('itemsCount',0)
         );
     }
 

@@ -2,23 +2,30 @@
 {% if maxPages > 1 %}
 <!--pagination start-->
 <div class="col-md-12 col-sm-12 col-xs-12">
-{{ limit }} | {{ currentPage }} | {{ firstPage}} .. {{ lastPage }} | {{ maxPages }}
+  {#
+    {{ limit }} | {{ currentPage }} | {{ firstPage}} .. {{ lastPage }} | {{ maxPages }}
+  #}
     <div class="pagination-btn text-center">
         <ul class="page-numbers">
-          <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':prev}) }}" class="next page-numbers"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
+          <li><a id="{{ prev }}" href="#"  class="prev page-numbers"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
           {% for i in firstPage..lastPage %}
             {% if i == currentPage %}
-              <li><span class="page-numbers current">{{ i }}</span></li>
+              {#<li><span id="{{ i }}" href="#"  class="page-numbers current">{{ i }}</span></li>#}
+              <li><a id="{{ i }}" href="#"  class="page-numbers current">{{ i }}</a></li>
             {% else %}
-              <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':i}) }}" class="page-numbers">{{ i }}</a></li>
+              <li><a id="{{ i }}" href="#"  class="page-numbers">{{ i }}</a></li>
             {% endif %}
           {% endfor %}
           {% if lastPage < maxPages %}
-            <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':maxPages}) }}" class="page-numbers">{{ maxPages }}</a></li>
+            <li><a id="{{ maxPages }}" href="#"  class="page-numbers">{{ maxPages }}</a></li>
           {% endif %}
-          <li><a href="{{ url('categories',{'itemsPerPage':limit,'currentPage':next}) }}" class="next page-numbers"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
+          <li><a id="{{ next }}" href="#"  class="next page-numbers"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
         </ul>
     </div>
 </div>
 <!--pagination end-->
 {% endif %}
+
+<!-- jquery latest version -->
+<script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
+<script src="{{ asset('js/common-filter.js') }}"></script>

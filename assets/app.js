@@ -17,10 +17,11 @@ import "./styles/css/color/skin-default.css";
 
 import './styles/app.css';
 
+var $ = require('jquery');
+global.$ = global.jQuery = $;
 
 // start the Stimulus application
-// import './bootstrap';
-//const $ = require('jquery'); 
+ import './bootstrap';
 
 // import "./js/vendor/jquery-1.12.0.min.js";
 // const $ = require('jquery');

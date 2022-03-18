@@ -14,18 +14,22 @@
     <div class="container">
       <div class="row">
         {{ include('default/layouts/sidebar.html.twig') }}
-
-        {{ render(controller(
-          'App\\Controller\\DefaultController::getAllProductsInCategory',
-          {
-            'categoryId': id, 
-            'view': 'default/layouts/category-main.html.twig',
-            'limit': itemsPerPage,
-            'offset': (currentPage-1)
-           }
-          ))
-        }}
-
+        <!--main-shop-product start-->
+        <div class="col-md-9 col-sm-8 col-xs-12">
+          <div class="shop-wraper">
+            {{ render(controller(
+              'App\\Controller\\DefaultController::getAllProductsInCategory',
+              {
+                'categoryId': id, 
+                'view': 'default/layouts/category-main.html.twig',
+                'limit': itemsPerPage,
+                'offset': (currentPage-1)
+              }
+              ))
+            }}
+          </div>
+        </div>
+        <!--main-shop-product start-->
       </div>
     </div>
   </div>
