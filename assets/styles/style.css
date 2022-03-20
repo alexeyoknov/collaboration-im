@@ -2195,6 +2195,13 @@ textarea {
     padding-top: 20px;
 }
 
+.no-comments {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
 .lyt-right .area-text {
     border: 1px solid #e2e2e2;
     height: 160px;
