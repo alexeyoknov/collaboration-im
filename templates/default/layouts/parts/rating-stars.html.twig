@@ -4,12 +4,12 @@
 <div class="prodcut-ratting">
     {% if rating>0 %}
         {% for i in 1..rating %}
-            <a href="#"><i class="fa fa-star"></i></a>
+            <i class="fa fa-star"></i>
         {% endfor %}
     {% endif %}
     {% if rating <= 4 %}
         {% for i in rating..4 %}
-            <a href="#"><i class="fa fa-star-o"></i></a>
+            <i class="fa fa-star-o"></i>
         {% endfor %}
     {% endif %}
     [{{ rating }}]

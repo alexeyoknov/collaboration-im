@@ -271,7 +271,7 @@ CSS INDEX
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     top: 0;
 }
-.prodcut-ratting > a {
+.prodcut-ratting > .fa {
     color: #333;
     font-size: 12px;
 }
@@ -1380,7 +1380,7 @@ input.cart-plus-minus-box {
     font-size: 18px;
     text-transform: capitalize;
 }
-.single-product-description .prodcut-ratting > a {
+.single-product-description .prodcut-ratting > .fa {
     font-size: 18px;
     color: #cc3333
 }
@@ -2132,14 +2132,25 @@ textarea {
     margin-bottom: 0;
 }
 .signle-comments > img {
-    float: left
+    float: left;
 }
 .comments-text {
+    flex: 1;
     overflow: hidden;
     padding-left: 15px;
 }
+
+.comments-text >* .fa {
+    font-size: 16px;
+}
+
+.comments-text >* .fa:focus,
+.comments-text >* .fa:hover {
+    color: #333;
+}
 .single-comments {
     display: flex;
+    align-items: flex-start;
     margin-bottom: 40px;
     position: relative;
 }
@@ -2171,11 +2182,17 @@ textarea {
 .leave-ib input {
     border-color: #e2e2e2;
     border-radius: 0;
-    color: #c6c6c6;
+    color: #333333;
+    background-color: unset;
     height: 40px;
     line-height: 40px;
     margin-bottom: 20px;
     width: 100%;
+}
+
+.addcomment-body {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
 }
 
 .lyt-right .area-text {
@@ -2216,6 +2233,46 @@ button {
 }
 .replay > a:hover {
     color: #cc3333;
+}
+
+.star-rating__input{
+    display: none;
+}
+
+.star-rating {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.star-rating__wrap {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.star-rating__ico:hover:before,
+.star-rating__ico:hover ~ .star-rating__ico:before,
+.star-rating__input:checked ~ .star-rating__ico:before {
+    content: "\f005";
+    color: #333;
+}
+
+.star-rating__input:checked ~ .star-rating__ico:before {
+    color: #cc3333;
+}
+
+
+.star-rating__ico {
+    padding: 5px;
+    /*float: right;*/
+}
+
+.star-rating__ico {
+    margin: -5px;
+}
+
+.star-rating__ico.fa-lg {
+    font-size: 35px;
 }
 /*----------------------------------------*/
 /*  25. 404 page

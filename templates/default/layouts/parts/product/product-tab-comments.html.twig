@@ -1,5 +1,5 @@
 {% if product.getComments()|length > 0 %}
-	<div role="tabpanel" class="tab-pane fix fade in" id="comments">
+	<div role="tabpanel" class="tab-pane fix fade in active" id="comments">
 		<div class="comments-body">
 			<ul>
 				{% for comment in product.getComments() %}
@@ -16,22 +16,38 @@
 				{% endfor %}
 			</ul>
 		</div>
-		<h3 class="sb-title">Комментировать</h3>
-		<div class="lyt-right">
-      <form id=addcomment action="{{ url('addcomment',{'product_id': id}) }}" method='POST'>
-        <div>
-          <input type='text' id='username' name='username'/>
-          <select id='rating' name='rating'>
-            {% for i in 1..5 %}
-              <option value={{ i }}>{{ i }}</option>
-            {% endfor %}
-          </select>
-        </div>
-			  <textarea name="text" class="area-text"></textarea>
-			  <div class="post-comment input-box">
-				  <button type="submit" class="submit">Отправить комментарий</button>
-			  </div>
-      </form>
-		</div>
+    <div class="addcomment-body">
+      <h3 class="sb-title">Комментировать</h3>
+      <div class="lyt-right">
+        <form id="addcomment" action="{{ url('addcomment',{'product_id': id}) }}" method='POST'>
+          <div>
+            <h5>Ваше имя:</h5>
+            <div class="leave-ib">
+              <input type="text" id="username" name="username"/>
+            </div>
+            <h5>Оценка:</h5>
+            <div class="star-rating">
+              <div class="star-rating__wrap">
+                <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
+                <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
+                <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
+                <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
+                <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
+              </div>
+            </div>
+          </div>
+          <h5>Текст комментария:</h5>
+          <textarea name="text" class="area-text"></textarea>
+          <div class="post-comment input-box">
+            <button type="submit" class="submit">Отправить комментарий</button>
+          </div>
+        </form>
+      </div>
+    </div>
 	</div>
 {% endif %}
