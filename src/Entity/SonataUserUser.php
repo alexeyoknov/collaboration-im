@@ -41,4 +41,9 @@ class SonataUserUser extends BaseUser
 
         return $this;
     }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
 }

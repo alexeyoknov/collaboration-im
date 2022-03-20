@@ -48,5 +48,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('jquery-ui') }}
+    {{ encore_entry_script_tags('sortable') }}
     <script src="{{ asset('bundles/fosckeditor/ckeditor.js') }}" type="text/javascript"></script>
 {% endblock %}

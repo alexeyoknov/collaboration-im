@@ -8,8 +8,8 @@ fos_user:
     service:
         user_manager: sonata.user.orm.user_manager
     from_email:
-        address: "%mailer_user%"
-        sender_name: "%mailer_user%"
+        address: "test@gmail.com"
+        sender_name: "test@gmail.com"
     registration:
         form:
             type: AppFormRegistrationType

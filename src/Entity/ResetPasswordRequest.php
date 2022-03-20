@@ -42,4 +42,11 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     {
         return $this->user;
     }
+
+    public function setUser(?SonataUserUser $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

@@ -7,9 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Gedmo\Tree(type="nested")
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
 class Category
 {
@@ -26,6 +30,31 @@ class Category
     private $name;
 
     /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="tree_root", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $lvl;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -38,12 +67,15 @@ class Category
     private $updated;
 
     /**
+     * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="Children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $Parent;
 
     /**
      * @ORM\OneToMany(targetEntity=Category::class, mappedBy="Parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $Children;
 
@@ -56,6 +88,12 @@ class Category
      * @ORM\Column(type="boolean")
      */
     private $active = true;
+
+    /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
 
     public function __construct()
     {
@@ -189,6 +227,71 @@ class Category
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getLft(): ?int
+    {
+        return $this->lft;
+    }
+
+    public function setLft(int $lft): self
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    public function getRgt(): ?int
+    {
+        return $this->rgt;
+    }
+
+    public function setRgt(int $rgt): self
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    public function getLvl(): ?int
+    {
+        return $this->lvl;
+    }
+
+    public function setLvl(int $lvl): self
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    public function getRoot(): ?self
+    {
+        return $this->root;
+    }
+
+    public function setRoot(?self $root): self
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    public function getHierarchyList(): string
+    {
+        return str_repeat("_", $this->lvl * 2) . $this->name;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
