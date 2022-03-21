@@ -8,44 +8,24 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
- * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryRepository extends ServiceEntityRepository
+class CategoryRepository extends NestedTreeRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Category::class);
-    }
-
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @return Category[] Returns an array of CategoryNested objects
      */
-    public function add(Category $entity, bool $flush = true): void
+    public function findAll(): array
     {
-        $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
+        return $this->findBy([],['root'=>'ASC','lft'=>'ASC']);
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function remove(Category $entity, bool $flush = true): void
-    {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
     }
-
+    
     public function getAllSubCategories(int $id)
     {
         $em = $this->getEntityManager();

@@ -13,7 +13,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
 class Category
 {
