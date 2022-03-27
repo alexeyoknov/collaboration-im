@@ -325,5 +325,22 @@ class DefaultController extends AbstractController
         return $this->redirectToRoute($view,['id'=>$request->get('product_id')]);
 
     }
- 
+    
+    public function searchAction(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $requestString = $request->get('search');
+        $products = $em->getRepository('App:Product')->findByName($requestString);
+        
+        $productsData = [];
+        if (!$products) {
+            $result['products']['error'] = "Товаров не найдено";
+        } else {
+            foreach ($products as $product) {
+                $productsData[$product->getId()] = $product->getName();
+            }
+            $result['products'] = $productsData;
+        }
+        return new Response(json_encode($result));
+    }
 }

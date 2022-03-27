@@ -228,7 +228,27 @@ Version: 1.0
   width: 100%;
 }
 .search-box {
-  height: 90px;
+    height: 90px;
+    position: relative;
+}
+
+.search-results {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}
+
+.search-results li a{
+    color: #333;
+    padding: 0;
+}
+
+.search-results li {
+    padding: 10px 15px;
+}
+
+.search-results .search-link:hover {
+    background-color: #cccccc;
 }
 .phone-mail-area {
   line-height: 45px;

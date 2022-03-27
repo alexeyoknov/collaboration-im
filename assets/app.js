@@ -22,6 +22,7 @@ global.$ = global.jQuery = $;
 
 // start the Stimulus application
  import './bootstrap';
+ import "./js/search.js";
 
 // import "./js/vendor/jquery-1.12.0.min.js";
 // const $ = require('jquery');
