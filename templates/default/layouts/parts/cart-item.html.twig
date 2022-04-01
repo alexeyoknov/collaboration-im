@@ -4,7 +4,7 @@
 {% for cartItem in items %}
     <tr class="cart_item">
         <td class="item-img">
-            <a href="{{ url('product',{'id':cartItem.product.id}) }}"><img src="images/product/01.jpg" alt=""> </a>
+            <a href="{{ url('product',{'id':cartItem.product.id}) }}"><img src="{{ asset("images/product/01.jpg") }}" alt=""> </a>
         </td>
         <td class="item-title"> <a href="{{ url('product',{'id':cartItem.product.id}) }}">{{ cartItem.name }}</a></td>
         <td class="item-price"> {{ cartItem.price }} </td>

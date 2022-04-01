@@ -28,5 +28,21 @@
         {{ include('default/layouts/parts/product/product-quantity-area.html.twig') }}
         
         {{ include('default/layouts/parts/product/product-buttons.html.twig') }}
+        <div>
+          {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
+          <div class="form-group">
+            {{ form_label(form.quantity) }}
+            {{ form_widget(form.quantity, {
+              'attr': {
+                'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
+              }
+            }) }}
+            <div class="invalid-feedback">
+              {{ form_errors(form.quantity) }}
+            </div>
+          </div>
+          {{ form_widget(form.add, {'attr': {'class': 'btn btn-warning w-25'}}) }}
+          {{ form_end(form) }}
+        </div>
     </div>
 </div>

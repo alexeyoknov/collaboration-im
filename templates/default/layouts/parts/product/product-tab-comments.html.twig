@@ -4,13 +4,13 @@
       <ul>
         {% for comment in product.getComments() %}
           <li class="single-comments">
-            <img src="images/blog/author.jpg" alt="">
+            <img src="{{ asset("images/blog/author.jpg") }}" alt="">
             <div class="comments-text">
               <h5>{{ comment.username }}</h5>
               {{ include('default/layouts/parts/rating-stars.html.twig',{'rating': comment.rating}) }}
               <span>Date:
 								{{ comment.created | date }}</span>
-              <p>{{ comment.text|raw }}</p>
+              <p>{{ comment.text | raw }}</p>
             </div>
           </li>
         {% endfor %}
