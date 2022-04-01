@@ -6,7 +6,7 @@ $('#search').keyup(function () {
   if (value.length >= minlength) {
     if (searchRequest != null) searchRequest.abort();
     searchRequest = $.ajax({
-      type: 'GET', url: 'search', data: {
+      type: 'GET', url: $(location).attr('origin')+'/search', data: {
         'search': value
       }, dataType: "text", success: function (msg) {
         let result = JSON.parse(msg);
