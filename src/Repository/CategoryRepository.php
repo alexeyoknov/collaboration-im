@@ -26,8 +26,17 @@ class CategoryRepository extends NestedTreeRepository
 
     }
     
-    public function getAllSubCategories(int $id)
+    public function getAllSubCategories(int $id, int $tree_root=null, int $lft = null, int $rgt=null)
     {
+        $sql_tree_ = "SELECT parent.name, node.id, node.parent_id
+            FROM category AS node,
+                    category AS parent
+            WHERE node.lft BETWEEN parent.lft AND parent.rgt
+                    AND node.id = " . $id . "
+            ORDER BY parent.lft";
+        $sql_tree="SELECT id, parent_id FROM category WHERE tree_root=".$tree_root."
+            AND (lft>" . $lft .  " AND rgt<" . $rgt . ");
+";
         $em = $this->getEntityManager();
         $sql = 
         "SELECT  id
@@ -41,7 +50,7 @@ class CategoryRepository extends NestedTreeRepository
         $rsm->addEntityResult('App:Category', 'c');
         $rsm->addFieldResult('c','id','id');
 
-        return $em->createNativeQuery($sql,$rsm)->getArrayResult();
+        return $em->createNativeQuery($sql_tree,$rsm)->getArrayResult();
 
     }
 
