@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
@@ -33,7 +34,7 @@ class DefaultController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function category($id = null, EntityManagerInterface $em, Request $request)
+    public function category($id = null, EntityManagerInterface $em, Request $request): Response
     {
         $fields = ['id'=>$id, 'active'=>true];
         if (is_null($id))     
@@ -46,25 +47,16 @@ class DefaultController extends AbstractController
             'category' => $category,
             'id' => $id,
             'type' => 'Category',
-            'itemsPerPage' => ((null !== $request->get('itemsPerPage')) ? $request->get('itemsPerPage') : 25),
-            'currentPage' => ((null !== $request->get('currentPage')) ? $request->get('currentPage') : 1)
+            'viewType' => $request->get('viewType','grid'),
+            'itemsPerPage' =>  $request->get('itemsPerPage',25),
+            'currentPage' => $request->get('currentPage',1),
+            'orderBy' => $request->get('orderBy','id'),
+            'orderType' => $request->get('orderType','ASC')    
         ]);
     }
+    
 
-    public function product(int $id, EntityManagerInterface $em)
-    {
-        
-        $product = $em->getRepository('App:Product')->find($id);
-
-        return $this->render(
-            ($product ? 'default/product.html.twig' : self::PAGE_NOT_EXIST), [
-            'product' => $product,
-            'id' => $id,
-            'type' => 'Product'
-        ]);
-    }
-
-    public function getProducts(int $categoryId, EntityManagerInterface $em)
+    public function getProducts(int $categoryId, EntityManagerInterface $em): Response
     {
         
         $products = $em->getRepository('App:Category')->findOneBy(['id'=>$categoryId]);
@@ -85,13 +77,19 @@ class DefaultController extends AbstractController
      * @param string $orderType Order direction ASC | DESC
      * @return Response
      */
-    public function getAllProductsInCategory($categoryId, string $view, int $offset = 0, int $limit = 0, string $orderBy = 'id', string $orderType = 'ASC'): Response
+    public function getAllProductsInCategory($categoryId, string $view, int $offset = 0, int $limit = 0, string $orderBy = 'id', string $orderType = 'ASC', string  $viewType='grid'): Response
     {       
-        $em = $this->getDoctrine()->getManager();         
-        if (!is_null($categoryId) && ($categoryId !== 'all')) {
-            $subcats = $em->getRepository('App:Category')->getAllSubCategories($categoryId);
-            $subcats = \array_merge([$categoryId], $subcats);
-            $productsRes = $em->getRepository('App:Product')->findAllProductsInCategory($subcats);
+        $em = $this->getDoctrine()->getManager();
+        
+        $curID = [$categoryId];
+        //$subcats = [];
+        if ((null !== $categoryId) && ($categoryId !== 'all')) {
+            $cat = $em->getRepository('App:Category')->findOneBy(['id'=>$categoryId]);
+            $subcats = $em->getRepository('App:Category')->getAllSubCategories($categoryId,$cat->getRoot()->getId(),$cat->getLft(),$cat->getRgt());
+            $subcats = \array_merge($curID, \array_column($subcats,'id'));
+            $productsRes = $em->getRepository('App:Product')
+                    ->findAllProductsInCategory($subcats, $offset, $limit, $orderBy, $orderType);
+            //int $offset = 0, int $limit = 0, string $orderBy = 'id', string $orderType = 'ASC'
         } else
             {
                 $productsRes['query'] = $em->getRepository('App:Product')->findBy(['active'=>true]);
@@ -112,7 +110,11 @@ class DefaultController extends AbstractController
             'totalCount' => $productsRes['totalCount'],
             'currentPage' => ($offset+1),
             'showFrom' => ($limit * $offset + 1),
-            'showTo' => ($limit>0 ? ($limit*($offset+1)) : $productsRes['totalCount'])
+            'viewType' => $viewType,
+            'showTo' => ($limit>0 ? ($limit*($offset+1)) : $productsRes['totalCount']),
+            'orderBy' => $orderBy,
+            'orderType' => $orderType,
+            //'subcats' => json_encode($subcats,JSON_UNESCAPED_UNICODE)
         ];
 
         return $this->render($view, $result);
@@ -123,15 +125,16 @@ class DefaultController extends AbstractController
      * @Route("/all-products", name="all_products", methods={"POST"}) 
      * 
      */
-    public function getAllProductsAjax(Request $request)
-    { 
+    public function getAllProductsAjax(Request $request): Response
+    {
         return $this->getAllProductsInCategory(
             $request->get('categoryId',null),
             $request->get('view',''),
             $request->get('offset',0),
             $request->get('limit',0),
             $request->get('orderBy','id'),
-            $request->get('orderType','ASC')
+            $request->get('orderType','asc'),
+            $request->get('viewType','grid'),
         );
     }
     
@@ -296,14 +299,17 @@ class DefaultController extends AbstractController
      * @Route("/category-pagination", name="cat_pagination", methods={"POST"}) 
      * 
      */
-    public function getAjaxPagination(Request $request)
+    public function getAjaxPagination(Request $request): Response
     {
         return $this->getPagination(
-            '',$request->get('currentPage',1),$request->get('limit',0),$request->get('itemsCount',0)
+            '',
+            $request->get('currentPage',1),
+            $request->get('limit',0),
+            $request->get('itemsCount',0)
         );
     }
 
-    public function addComment(Request $request)
+    public function addComment(Request $request): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $view = 'product';
         if ((null !== $request->get('username')) && (null !== $request->get('text'))) {

@@ -23,7 +23,10 @@
                 'categoryId': id, 
                 'view': 'default/layouts/category-main.html.twig',
                 'limit': itemsPerPage,
-                'offset': (currentPage-1)
+                'offset': (currentPage-1),
+                'viewType': viewType,
+                'orderBy': orderBy,
+                'orderType': orderType
               }
               ))
             }}
@@ -33,9 +36,5 @@
       </div>
     </div>
   </div>
-{#
-    {{ render(controller(
-        'App\\Controller\\DefaultController::getSubCategories',{'parent':category.id}))
-    }}          
-#}  
+
 {% endblock %}

@@ -1,6 +1,6 @@
 
 <!--tab grid are start-->
-<div role="tabpanel" class="tab-pane fade in active" id="grid">
+<div role="tabpanel" class="tab-pane fade in {% if viewType=='grid' %} active {% endif %}" id="grid">
   <div class="total-shop-product-grid">
     {% for product in products %}    
       <div class="col-md-4 col-sm-6 item">

@@ -1,5 +1,5 @@
 <!--shop product list start-->
-<div role="tabpanel" class="tab-pane  fade in" id="list">
+<div role="tabpanel" class="tab-pane  fade in {% if viewType=='list' %} active {% endif %}" id="list">
     <div class="total-shop-product-list">
         {% for product in products %}
             <div class="col-md-12 item">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="list-product-content">
-                            <p>{{ product.description }}</p>
+                            {{ product.description | raw }}
                         </div>
                         <div class="social-icon-wraper mt-25">
                             <div class="social-icon socile-icon-style-1">

@@ -3,7 +3,7 @@ index:
     controller: App\Controller\DefaultController::index
 
 category:
-    path: /catalog-{id}
+    path: /catalog/{id}
     controller: App\Controller\DefaultController::category
 
 categories:
@@ -11,8 +11,8 @@ categories:
     controller: App\Controller\DefaultController::category
 
 product:
-    path: /product-{id}
-    controller: App\Controller\DefaultController::product
+    path: /product/{id}
+    controller: App\Controller\ProductController::product
 
 cart:
     path: /cart
