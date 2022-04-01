@@ -14,9 +14,9 @@ $('#search').keyup(function () {
           $.each(arr, function (id, name) {
             if (key === 'products') {
               if (id !== 'error') {
-                searchRow.append('<li class="search-link" ><a href="/product-' + id + '">' + name + '</a></li>');
+                searchRow.append('<li class="search-link" ><a href="' + name.url + '">' + name.name + '</a></li>');
               } else {
-                searchRow.append('<li>' + name + '</li>');
+                searchRow.append('<li>' + name.name + '</li>');
               }
             }
           });

@@ -337,7 +337,10 @@ class DefaultController extends AbstractController
             $result['products']['error'] = "Товаров не найдено";
         } else {
             foreach ($products as $product) {
-                $productsData[$product->getId()] = $product->getName();
+                $productsData[$product->getId()] = [
+                    'name' => $product->getName(),
+                    'url' => $this->generateUrl('product', ['id'=>$product->getId()])
+                ];
             }
             $result['products'] = $productsData;
         }
