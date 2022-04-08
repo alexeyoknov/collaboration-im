@@ -1,16 +1,14 @@
 <div class="quantity-area">
-    <label>Qty :</label>
-    <div class="cart-quantity">
-        <form action="#" method="POST" id="myform">
-            <div class="product-qty">
-                <div class="cart-quantity">
-                    <div class="cart-plus-minus">
-                        <div class="dec qtybutton">-</div>
-                            <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                        <div class="inc qtybutton">+</div>
-                    </div>
-                </div>
-            </div>
-        </form>
+  <label>Qty :</label>
+  <div class="cart-quantity">
+    <div class="product-qty">
+      <div class="cart-quantity">
+        <div class="cart-plus-minus">
+          <div class="dec qtybutton">-</div>
+            {{ form_widget(form.quantity, {'attr': {'class': 'cart-plus-minus-box', 'value':'1'}}) }}
+          <div class="inc qtybutton">+</div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

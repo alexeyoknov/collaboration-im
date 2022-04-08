@@ -13,7 +13,7 @@
             {% include "default/layouts/parts/product-image.html.twig" %}
             <div class="product-icon socile-icon-tooltip text-center">
                 <ul>
-                    <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                    <li><a id={{ product.id }} href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
                     <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
                     <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
                     <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
@@ -35,3 +35,12 @@
     <!-- single product end-->
 </div>
 {% endfor %}
+
+<script>
+  if (!window.jQuery) {
+    document.write('<script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"><\/script>');
+    console.log('loaded');
+}
+</script>
+
+<script src="{{ asset('js/cart-header.js') }}"></script>

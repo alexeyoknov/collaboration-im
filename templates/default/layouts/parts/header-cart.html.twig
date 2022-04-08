@@ -1,48 +1,54 @@
 <div class="header-cart">
-    {#
-        set cartItems = получить список товара в корзине из контроллера CartController:getItems 
-    #}
-    <div class="cart-icon">
-        <a href="#">Cart<i class="zmdi zmdi-shopping-cart"></i></a>
-        <span>
-        2 {# количество товара cartItems | length #}
-        </span>
+  {% if cart %}
+    {% set cartProducts = cart.getOrderProducts() %}
+  {% else %}
+    {% set cartProducts = [] %}
+  {% endif %}
+  <div class="cart-icon">
+    <a href="#">Cart<i class="zmdi zmdi-shopping-cart"></i></a>
+    <span>
+      {{ cartProducts | length }} {# количество товара cartItems | length #}
+    </span>
+  </div>
+  <div class="cart-content-wraper">
+    {% for ind, orderProduct in cartProducts %}
+      <div id="cartHeader-{{ orderProduct.product.id }}" class="cart-single-wraper">
+        <div class="cart-img">
+          <a href="{{ url('product',{'id': orderProduct.product.id}) }}">
+            {% set imgIndex = 0 %}
+            {% if orderProduct.product.gallery %}
+              {% for im in orderProduct.product.gallery.getGalleryHasMedias() if im.media.enabled and imgIndex == 0 %}
+                <img alt="" width="64" src="{{ sonata_path(im.media, 'product') }}">
+                {%  set imgIndex = imgIndex + 1 %}
+              {% endfor %}
+            {% endif %}
+            {% if imgIndex == 0 %}
+              <img src="https://via.placeholder.com/200x150" width="64" alt="Product image">
+            {% endif %}
+          </a>
+        </div>
+        <div class="cart-content">
+          <div class="cart-name"> <a href="{{ url('product',{'id':orderProduct.product.id}) }}">{{ orderProduct.product.name }}</a> </div>
+          <div class="cart-price"> {{ orderProduct.product.price }} </div>
+          <div class="cart-qty"> Qty: <span>{{ orderProduct.quantity }}</span> </div>
+        </div>
+        <div class="remove"> <a href="#"><i class="zmdi zmdi-close"></i></a> </div>
+      </div>
+    {% endfor %}
+    <div class="cart-subtotal">
+      Subtotal: 
+      <span>
+        {% if cart %}
+          {{ cart.total }} {# общая сумма cartTotalPrice #}
+        {% else %}
+          0
+        {% endif %}
+      </span>
     </div>
-    <div class="cart-content-wraper">
-        <div class="cart-single-wraper">
-            <div class="cart-img">
-                <a href="#"><img src="{{ asset("images/product/01.jpg") }}" alt=""></a>
-            </div>
-            <div class="cart-content">
-                <div class="cart-name"> <a href="#">Aenean Eu Tristique</a> </div>
-                <div class="cart-price"> $70.00 </div>
-                <div class="cart-qty"> Qty: <span>1</span> </div>
-            </div>
-            <div class="remove"> <a href="#"><i class="zmdi zmdi-close"></i></a> </div>
-        </div>
-
-        <div class="cart-single-wraper">
-            <div class="cart-img">
-                <a href="#"><img src="{{ asset("images/product/02.jpg") }}" alt=""></a>
-            </div>
-            <div class="cart-content">
-                <div class="cart-name"> <a href="#">Aenean Eu Tristique</a> </div>
-                <div class="cart-price"> $70.00 </div>
-                <div class="cart-qty"> Qty: <span>1</span> </div>
-            </div>
-            <div class="remove"> <a href="#"><i class="zmdi zmdi-close"></i></a> </div>
-        </div>
-
-        <div class="cart-subtotal">
-            Subtotal: 
-                <span>
-                    $200.00 {# общая сумма cartTotalPrice #}
-                </span>
-        </div>
         
-        <div class="cart-check-btn">
-            <div class="view-cart"> <a class="btn-def" href="{{ url('cart',{'step':'cart'}) }}">View Cart</a> </div>
-            <div class="check-btn"> <a class="btn-def" href="{{ url('cart',{'step':'checkout'}) }}">Checkout</a> </div>
-        </div>
+    <div class="cart-check-btn">
+      <div class="view-cart"> <a class="btn-def" href="{{ url('cart',{'step':'cart'}) }}">View Cart</a> </div>
+      <div class="check-btn"> <a class="btn-def" href="{{ url('cart',{'step':'checkout'}) }}">Checkout</a> </div>
     </div>
+  </div>
 </div>

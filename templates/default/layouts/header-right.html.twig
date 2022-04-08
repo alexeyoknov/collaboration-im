@@ -3,8 +3,12 @@
         <li>
             {{ include('default/layouts/parts/currency-part.html.twig') }}
         </li>
-        <li>
-            {{ include('default/layouts/parts/header-cart.html.twig') }}
+        <li id="headerCart">
+          {{ render(controller(
+            'App\\Controller\\CartController::showCart'
+          ))
+          }}
+{#  {{ include('default/layouts/parts/header-cart.html.twig') }} #}
         </li>
     </ul>
 </div>

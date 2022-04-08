@@ -14,14 +14,14 @@ class CartSessionStorage
      *
      * @var RequestStack
      */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /**
      * The cart repository.
      *
      * @var OrderRepository
      */
-    private $cartRepository;
+    private OrderRepository $cartRepository;
 
     /**
      * @var string
@@ -75,6 +75,6 @@ class CartSessionStorage
 
     private function getSession(): SessionInterface
     {
-        return $this->requestStack->getSession();
+        return $this->requestStack->getCurrentRequest()->getSession();
     }
 }

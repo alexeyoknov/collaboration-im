@@ -18,7 +18,6 @@ class ProductController extends AbstractController
     {
 
         $product = $em->getRepository('App:Product')->find($id);
-        $form = $this->createForm(AddToCartType::class);
 
         $form = $this->createForm(AddToCartType::class);
 
@@ -27,15 +26,22 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $item = $form->getData();
             $item->setProduct($product);
+            $item->setProductPrice($product->getPrice());
 
+            $token = $this->get('security.token_storage')->getToken();
+            $user = $token->getUser();
+            
             $cart = $cartManager->getCurrentCart();
             $cart
                 ->addOrderProduct($item)
                 ->setUpdatedAt(new \DateTime());
 
+            if ('anon.' !== $user) {
+                $cart->setUser($user);
+            }
             $cartManager->save($cart);
 
-            return $this->redirectToRoute('product.detail', ['id' => $product->getId()]);
+            return $this->redirectToRoute('product', ['id' => $product->getId()]);
         }
         
         return $this->render(

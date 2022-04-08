@@ -1,27 +1,49 @@
 {#
     добавить контроллер, который будет выдавать примерно такой список
 #}
-{% for cartItem in items %}
-    <tr class="cart_item">
-        <td class="item-img">
-            <a href="{{ url('product',{'id':cartItem.product.id}) }}"><img src="{{ asset("images/product/01.jpg") }}" alt=""> </a>
-        </td>
-        <td class="item-title"> <a href="{{ url('product',{'id':cartItem.product.id}) }}">{{ cartItem.name }}</a></td>
-        <td class="item-price"> {{ cartItem.price }} </td>
-        <td class="item-qty">
-            <div class="cart-quantity">
-                <div class="product-qty">
-                    <div class="cart-quantity">
-                        <div class="cart-plus-minus">
-                            <div class="dec qtybutton">-</div>
-                            <input value="1" name="qtybutton" class="cart-plus-minus-box" type="text">
-                            <div class="inc qtybutton">+</div>
-                        </div>
-                    </div>
-                </div>
+{% for ind, item in form.orderProducts %}
+  {% set product =  item.vars.data.product %}
+
+  <tr class="cart_item">
+    <td class="item-img">
+      {% set imgIndex = 0 %}
+      {% if product.gallery %}
+        {% for im in product.gallery.getGalleryHasMedias() if im.media.enabled and imgIndex == 0 %}
+          <img alt="" width="64" src="{{ sonata_path(im.media, 'product') }}"
+          >
+          {%  set imgIndex = imgIndex + 1 %}
+        {% endfor %}
+      {% endif %}
+      {% if imgIndex == 0 %}
+        <img src="https://via.placeholder.com/200x150" width="64" alt="Product image">
+      {% endif %}
+    </td>
+
+    <td class="item-title"> <a href="{{ url('product',{'id':product.id}) }}">{{ product.name }}</a></td>
+    <td class="item-price"> {{ product.price }} </td>
+
+    <td class="item-qty">
+      <div class="cart-quantity">
+        <div class="product-qty">
+          <div class="cart-quantity">
+            <div class="cart-plus-minus">
+              <div class="dec qtybutton">-</div>
+              <input id="cart_orderProducts_{{ ind }}_quantity" value="{{ item.vars.data.quantity }}" name="cart[orderProducts][{{ ind }}][quantity]" class="cart-plus-minus-box" type="text">
+              <div class="inc qtybutton">+</div>
+
             </div>
-        </td>
-        <td class="total-price"><strong> {{ cartItem.price }} </strong></td>
-        <td class="remove-item"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-    </tr>
+          </div>
+        </div>
+      </div>
+    </td>
+
+    <td class="total-price"><strong>{{ product.price }}</strong></td>
+    <td class="remove-item">
+      <a id="productID-{{ ind }}"><i class="fa fa-trash-o"></i></a>
+      {#
+      {{ form_widget(item.remove, {'attr': {'class': 'fa fa-trash-o'}}) }}
+      #}
+    </td>
+
+  </tr>
 {% endfor %}

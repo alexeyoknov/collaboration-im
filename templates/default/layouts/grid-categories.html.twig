@@ -15,7 +15,7 @@
             
             <div class="product-icon socile-icon-tooltip text-center">
                 <ul>
-                    <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                    <li><a id={{ product.id }} href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
                     <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
                     <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
                     <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="product-text">
-              <div class="prodcut-name"> <a href="{{ url('product',{'id': product.id}) }}"">{{ product.name }}</a> </div>
+              <div class="prodcut-name"> <a href="{{ url('product',{'id': product.id}) }}">{{ product.name }}</a> </div>
               <div class="prodcut-ratting-price">
                   {% set viewType = "gr-var" %}
                   {{ include('default/layouts/parts/rating-star-controller.html.twig') }}

@@ -6,6 +6,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -23,28 +24,52 @@ class Order
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $clientName;
+    private ?string $clientName = 'anonymous';
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $phoneNumber;
+    private ?string $phoneNumber = 'anonymous';
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private ?string $email = 'anonymous';
 
     /**
      * @ORM\OneToMany(targetEntity=OrderProduct::class, mappedBy="OrderRef", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $orderProducts;
+    private Collection $orderProducts;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", length=255)
      */
-    private $orderTotal = 0;
+    private string $status = self::STATUS_CART;
 
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SonataUserUser::class, inversedBy="orders")
+     */
+    private ?SonataUserUser $user;
+
+    /**
+     * An order that is in progress, not placed yet.
+     *
+     * @var string
+     */
+    const STATUS_CART = 'cart';
+    
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
@@ -101,22 +126,22 @@ class Order
 
     public function addOrderProduct(OrderProduct $orderProduct): self
     {
-        if (!$this->orderProducts->contains($orderProduct)) {
-            $this->orderProducts[] = $orderProduct;
-            $orderProduct->setOrderRef($this);
-        }
+//        if (!$this->orderProducts->contains($orderProduct)) {
+//            $this->orderProducts[] = $orderProduct;
+//            $orderProduct->setOrderRef($this);
+//        }
 
-        // foreach ($this->getOrderProducts() as $existingItem) {
-        //     if ($existingItem->equals($orderProduct)) {
-        //         $existingItem->setQuantity(
-        //             $existingItem->getQuantity() + $orderProduct->getQuantity()
-        //         );
-        //         return $this;
-        //     }
-        // }
+         foreach ($this->getOrderProducts() as $existingItem) {
+             if ($existingItem->equals($orderProduct)) {
+                 $existingItem->setQuantity(
+                     $existingItem->getQuantity() + $orderProduct->getQuantity()
+                 );
+                 return $this;
+             }
+         }
     
-        // $this->orderProducts[] = $orderProduct;
-        // $orderProduct->setOrderRef($this);
+         $this->orderProducts[] = $orderProduct;
+         $orderProduct->setOrderRef($this);
     
         return $this;
     }
@@ -133,15 +158,100 @@ class Order
         return $this;
     }
 
-    public function getOrderTotal(): ?float
+    /**
+     * Removes all items from the order.
+     *
+     * @return $this
+     */
+    public function removeOrderProducts(): self
     {
-        return $this->orderTotal;
-    }
-
-    public function setOrderTotal(float $orderTotal): self
-    {
-        $this->orderTotal = $orderTotal;
+        foreach ($this->getOrderProducts() as $item) {
+            $this->removeOrderProduct($item);
+        }
 
         return $this;
     }
+
+    /**
+     * Calculates the order total.
+     *
+     * @return float
+     */
+    public function getTotal(): float
+    {
+        $total = 0;
+
+        foreach ($this->getOrderProducts() as $item) {
+            $total += $item->getTotal();
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getUser(): ?SonataUserUser
+    {
+        return $this->user;
+    }
+
+    public function setUser(?SonataUserUser $user): self
+    {
+        $this->user = $user;
+        $this->email = $user->getEmail() ?? 'anonymous';
+        $this->clientName = $user->getUsername() ?? 'anonymous';
+        $this->phoneNumber = $user->getPhone() ?? 'anonymous';
+        
+        return $this;
+    }
+
 }

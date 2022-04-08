@@ -17,6 +17,8 @@ import "./styles/css/color/skin-default.css";
 
 import './styles/app.css';
 
+import './styles/css/cart-add-buttons.css';
+
 var $ = require('jquery');
 global.$ = global.jQuery = $;
 
