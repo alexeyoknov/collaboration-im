@@ -14,8 +14,8 @@
   - `composer install`
   - `npm install file-loader@^6.0.0 --save-dev`
   - `npm run build`
-  либо запустить скрипт [postinstall.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/postinstall.sh)
-6. Загрузить тестовые данные, выполнив скрипт [import-data-to-db.sh](https://github.com/alexeyoknov/collaboration-im/blob/main/config/postinstall/import-data-to-db.sh)  
+  либо запустить скрипт [postinstall.sh](config/postinstall/postinstall.sh)
+6. Загрузить тестовые данные, выполнив скрипт [import-data-to-db.sh](config/postinstall/import-data-to-db.sh)  
   Образец можно взять файле **.env** (находится в корне этого каталога)
 7. Создать пользователя с правами администратора `bin/console fos:user:create --super-admin
    `
@@ -24,7 +24,7 @@
 
 ## Настройка виртуального хоста в nginx
 ### Настройка конфигурации хоста
-Примерный файл конфигурации можно найти в [config/nginx/local.nginx.example](https://github.com/alexeyoknov/collaboration-im/blob/main/config/nginx/local.nginx.example)
+Примерный файл конфигурации можно найти в [config/nginx/local.nginx.example](config/nginx/local.nginx.example)
 Его можно переименовать, например, в **local.collaboration-im.conf**, а также проверить и поменять под себя следующие строки:
 ```
     server_name c-im.my;
@@ -76,12 +76,12 @@ GRANT ALL PRIVILEGES ON db_name.* TO 'dbusername'@'127.0.0.1';
   DATABASE_URL="mysql://dbusername:@127.0.0.1:3306/db_name?serverVersion=8.0&charset=utf8mb4"
   ```
 ### 5. Создать таблицы
-   Если используются настройки из [миграций](https://github.com/alexeyoknov/collaboration-im/tree/main/migrations)
+   Если используются настройки из [миграций](migrations)
   ```
   ./bin/console make:migration
   ./bin/console doctrine:migrations:migrate
   ```
-  Если берутся настойки из [аннотаций в Entity](https://github.com/alexeyoknov/collaboration-im/tree/main/src/Entity)
+  Если берутся настойки из [аннотаций в Entity](src/Entity)
   ```
   ./bin/console doctrine:schema:update --force
   ```
