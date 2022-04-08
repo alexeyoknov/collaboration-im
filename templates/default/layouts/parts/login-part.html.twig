@@ -1,7 +1,7 @@
 <div class="login-register-area">
     <ul>
         {% set isAdmin = is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN')  %}
-        {%  set isLogined = isAdmin or is_granted('ROLE_USER') %}
+        {% set isLogined = isAdmin or is_granted('ROLE_USER') %}
 
       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <li><a href="{{ url('app_userprofile') }}">

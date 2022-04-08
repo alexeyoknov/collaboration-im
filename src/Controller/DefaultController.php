@@ -32,6 +32,7 @@ class DefaultController extends AbstractController
      *
      * @param mixed $id int or null
      * @param EntityManagerInterface $em
+     * @param Request $request
      * @return Response
      */
     public function category($id = null, EntityManagerInterface $em, Request $request): Response
@@ -138,7 +139,7 @@ class DefaultController extends AbstractController
         );
     }
     
-    public function getCategories(string $view, $parent=null, int $limit=0, EntityManagerInterface $em)
+    public function getCategories(string $view, $parent=null, int $limit=0, EntityManagerInterface $em): Response
     {
         $categories = $em->getRepository('App:Category')->findBy(
             ['active'=>true, 'Parent'=>$parent],
