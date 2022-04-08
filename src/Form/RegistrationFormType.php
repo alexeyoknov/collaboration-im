@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\SonataUserUser;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,8 +19,22 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-            ->add('email')
+            ->add('username',TextType::class, [ 
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a username',
+                    ]),
+                ],
+            ])
+            ->add('email', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a email',
+                    ]),
+                ],
+            ])
 //            ->add('agreeTerms', CheckboxType::class, [
 //                'mapped' => false,
 //                'constraints' => [
@@ -59,4 +74,5 @@ class RegistrationFormType extends AbstractType
             'data_class' => SonataUserUser::class,
         ]);
     }
+    
 }
