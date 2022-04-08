@@ -38,7 +38,7 @@
           #}
           <div class="frm-action raw" style="display: flex; justify-content: space-between">
             <div class="input-box tci-box">
-              <a href="" onclick="document.registration_form.submit()" class="btn-def btn2">Register</a>
+              <a id="a_register" href=""  class="btn-def btn2">Register</a>
             </div>
 
             <div class="input-box tci-box">
@@ -52,5 +52,7 @@
       </div>
     </div>
   </div>
-</div>        
+</div>
+  <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
+  <script src="{{ asset('js/form-registration.js') }}"></script>
 {% endblock %}
